@@ -1,0 +1,12 @@
+pycomptox/
+│
+├── LICENSE
+├── README.md
+├── setup.py
+├── pycomptox/
+│   ├── __init__.py
+│   ├── api_wrapper.py
+│   └── other_module.py
+└── tests/
+    ├── __init__.py
+    └── test_api_wrapper.py
