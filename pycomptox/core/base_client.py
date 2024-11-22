@@ -27,26 +27,33 @@ class BaseAPIClient:
 
         if headers is None:
             headers = {}
+
         headers["x-api-key"] = self.api_key
+        headers["Accept"] = "application/json"
 
         # Determine the request body
-        body = kwargs.get("body", None)
-        if body is not None:
-            if isinstance(body, dict):
-                headers["Content-Type"] = "application/json"
-                json_body = body
-                data=None
-            else:
-                json_body = None
-                data = body
-        else:
-            json_body = None
-            data = None
-
-        headers["Content-Type"] = "application/json"
+        #body = kwargs.get("body", None)
+        #kwargs.pop("body", None)        # Remove the req_body key from kwargs
+        #print(body)
+#
+        #if body is not None:
+        #    if isinstance(body, dict):
+        #        #headers["Content-Type"] = "application/json"
+        #        json_body = body
+        #        data=None
+        #    else:
+        #        #headers["Content-Type"] = "text/plain"
+        #        json_body = None
+        #        data = body
+        #else:
+        #    json_body = None
+        #    data = None
+        #print("##############", json_body, data)
+        print("kwargs>>>>>>>", kwargs)
+        print("headers>>>>>>>", headers)
 
         try:
-            response = requests.request(method, url, headers=headers, json=json_body, data=data, **kwargs)
+            response = requests.request(method, url, headers=headers, **kwargs) #json=json_body, data=data, **kwargs)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
@@ -65,8 +72,16 @@ class BaseAPIClient:
         url = f"{self.base_url}/{endpoint.strip('/')}"
         return self._request("GET", url, headers=headers, params=params)
 
-    def post(self, endpoint: str, headers: Dict[str, str] = None, data: Dict[str, Any] = None) -> Dict[str, Any]:
-        return self._request("POST", endpoint, headers=headers, json=data)
+    def post(self, endpoint: str, headers: Dict[str, str] = None, **kwargs) -> Dict[str, Any]:
+        """
+        Make a POST request to the given endpoint with optional data.
+        :param endpoint: The endpoint (e.g., '/data/resource')
+        :param headers: Optional headers for the request
+        :param params: Optional query parameters for the GET request
+        :param kwargs: Additional arguments to pass to the request
+        """
+        url = f"{self.base_url}/{endpoint}"
+        return self._request("POST", url, headers=headers, **kwargs)
 
     def put(self, endpoint: str, headers: Dict[str, str] = None, data: Dict[str, Any] = None) -> Dict[str, Any]:
         return self._request("PUT", endpoint, headers=headers, json=data)

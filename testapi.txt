@@ -1,0 +1,12 @@
+curl -X POST "https://api-ccte.epa.gov/chemical/fate/search/by-dtxsid/" \
+ -H 'Accept: application/json'\
+ -H 'Content-Type: application/json' \
+ -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'\
+ -d '["DTXSID7020182", "DTXSID7020182"]'
+
+
+ curl -X POST "https://api-ccte.epa.gov/chemical/search/equal/" \
+ -H 'Accept: application/json'\
+ -H 'Content-Type: text/plain' \
+ -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'\
+ -d $'DTXCID30182\nDTXCID30182' 
