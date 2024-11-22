@@ -14,206 +14,109 @@ class ChemSearch(BaseAPIClient):
     """
     #### GET Methods
     """
-    def starts_with(self, word: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
+
+    def get_chemical(self, op :str, word: str, **kwargs) -> Dict[str, Any]:
         """
         #### Description:
-            Fetch chemical which starts with the search word.
+            Fetch chemical details based starting characters, exact match or substring of search word.
 
-        #### path parameter:
+        #### input parameters:
+            - op: Operator to search chemical. Valid values are 'start-with', 'equal', 'contain'
             - word: DTXCID, DTXSID , CAS number, Inchl (starting 13 characters), URLencoded chemical name(starting characters).
 
         #### Query Parameters:
             - top: Int32  -> Number of records to return.
-
-        #### Output Schema:
-            {
-              "casrn": "string",
-              "dtxsid": "string",
-              "dtxcid": "string",
-              "preferredName": "string",
-              "hasStructureImage": 0,
-              "smiles": "string",
-              "isMarkush": false,
-              "searchName": "string",
-              "searchValue": "string",
-              "rank": 0
-            }
-        
-        #### Example:
-            client = ChemSearch(api_key=api_key)
-            response = client.starts_with(word="95-16-9", query_params={"top": 10})
-        """
-        if query_params is None:
-            query_params = {}
-        
-        resource_id = f"chemical/search/start-with/{word}"
-        
-        return self.get(f"{resource_id}", params=query_params)
-
-    def equal(self, word: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
-        """
-        #### Description:
-             Fetch chemical exact match.
-
-        #### path parameter:        
-             word: DTXCID, DTXSID, CAS number, Inchl, or URLencoded chemical name(including synonyms).
-
-        #### Query Parameters:
-            - top: Int32  -> Number of records to return.
-
-        #### Output Schema:
-            {
-              "casrn": "string",
-              "dtxsid": "string",
-              "dtxcid": "string",
-              "preferredName": "string",
-              "hasStructureImage": 0,
-              "smiles": "string",
-              "isMarkush": false,
-              "searchName": "string",
-              "searchValue": "string",
-              "rank": 0
-            }
-
-        #### Example:
-            client = ChemSearch(api_key=api_key)
-            response = client.equal(word="95-16-9", query_params={"top": 10})
-        """
-        if query_params is None:
-            query_params = {}
-        
-        resource_id = f"chemical/search/equal/{word}"
-        
-        return self.get(f"{resource_id}", params=query_params)   
-    
-    def contain(self, word: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
-        """
-        #### Description:
-             Substring of search word.
-        
-        #### path parameter:
-            - word: Exact match of DTXSID, Substring match of DTXCID , Substr CAS number, Substr InChlKey Substr URLencoded chemical name(including synonyms).
-
-        #### Query Parameters:
-            - top: Int32  -> Number of records to return.
+              this will work only with 'start-with' and 'contain' operator
             - projection: String  -> Default: chemicalsearchall
+              this will work only with 'equal' and 'contain' operator
 
         #### Output Schema:
             {
-              "casrn": "string",
-              "dtxsid": "string",
-              "dtxcid": "string",
-              "preferredName": "string",
-              "hasStructureImage": 0,
-              "smiles": "string",
-              "isMarkush": false,
-              "searchName": "string",
-              "searchValue": "string",
-              "rank": 0
+                "casrn": "string",
+                "dtxsid": "string",
+                "dtxcid": "string",
+                "preferredName": "string",
+                "hasStructureImage": 0,
+                "smiles": "string",
+                "isMarkush": false,
+                "searchName": "string",
+                "searchValue": "string",
+                "rank": 0
             }
 
         #### Example:
             client = ChemSearch(api_key=api_key)
-            response = client.contain(word="95-16", query_params={"top": 10})
+            kawrgs = {"params": {"top": 20}}
+            response = client.get_chemical(op="contain", word="95-16-9")
+
+            kwargs = {"params": {"top": 20, "projection": "chemicalsearchall"}
+            response = client.get_chemical(op="contain", word="95-16-9", **kwargs)
+
         """
-        if query_params is None:
-            query_params = {}
+        op = op.lower()
+        if op not in ["start-with", "equal", "contain"]:
+            raise ValueError("Invalid operator. Valid values are 'start-with', 'equal', 'contain'")
+        if op == "start-with":
+            resource_id = f"chemical/search/start-with/{word}"
+        elif op == "equal":
+            resource_id = f"chemical/search/equal/{word}"
+        elif op == "contain":
+            resource_id = f"chemical/search/contain/{word}"
+
+        return self.get(f"{resource_id}",**kwargs)
+
+    def ms_ready(self, op :str, word :str = None, start :float = None, end :float = None, **kwargs) -> Dict[str, Any]:
+
+        """
+        #### Description:
+            Search ms ready chemicals based on mass range, formula or DTXCID.
+
+        #### input parameters:
+            - op: Operator to search ms ready chemicals. Valid values are 'mass', 'formula', 'dtxcid'
+            - word: formula or DTXCID
+            - start: start mass value
+            - end: end mass value
+
+        #### Output Schema:
+            [
+                "string"
+            ]
+
+        #### Example:
+            client = ChemSearch(api_key=api_key)
+            response = client.ms_ready(op="mass", start=200.9, end=200.95)
+            response = client.ms_ready(op="formula", word="C16H24N2O5S")
+            response = client.ms_ready(op="dtxcid", word="DTXCID30182")
+        """
+
+        op = op.lower()
+        if op not in ["mass", "formula", "dtxcid"]:
+            raise ValueError("Invalid operator. Valid values are 'mass', 'formula', 'dtxcid'")
         
-        resource_id = f"chemical/search/contain/{word}"
+        if op == "mass":
+            if start is None or end is None:
+                raise ValueError("Please provide start and end mass values")
+            resource_id = f"chemical/msready/search/by-mass/{start}/{end}"
+
+        elif op == "formula":
+            if word is None:
+                raise ValueError("Please provide formula")
+            resource_id = f"chemical/msready/search/by-formula/{word}"
+
+        elif op == "dtxcid":
+            if word is None:
+                raise ValueError("Please provide DTXCID")
+            resource_id = f"chemical/msready/search/by-dtxcid/{word}"
         
-        return self.get(f"{resource_id}", params=query_params)  
-
-    def by_mass(self, range: List[float], query_params: Dict[str, Any] = None) -> Dict[str, Any]:
-            """
-            #### Description:
-                Search ms ready chemical using mass range .
-
-            #### path parameter:
-                range: It's a range of mass with two values separated by a comma. e.g. 200.9,200.95 (start mass, end mass)
-
-            #### Query Parameters:
-                 None
-
-            #### Output Schema:
-                [
-                    "string"
-                ]
-
-            #### Example:
-                client = ChemSearch(api_key=api_key)
-                response = client.by_mass(range=[200.9, 200.95], query_params={})
-            """
-            if query_params is None:
-                query_params = {}
-
-            resource_id = f"chemical/msready/search/by-mass/{range[0]}/{range[1]}"
-
-            return self.get(f"{resource_id}", params=query_params)  
-    
-    def by_formula(self, formula: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
-            """
-            #### Description:
-                Search ms ready chemicals by formula.
-
-            #### path parameter:
-                formula: formula string
-
-            #### Query Parameters:
-                - None
-
-            #### Output Schema:
-                [
-                    "string"
-                ]
-
-            #### Example:
-                client = ChemSearch(api_key=api_key)
-                response = client.by_formula(formula="C16H24N2O5S", query_params
-            """
-            if query_params is None:
-                query_params = {}
-
-            resource_id = f"chemical/msready/search/by-formula/{formula}"
-
-            return self.get(f"{resource_id}", params=query_params)  
-    
-    def by_dtxcid(self, dtxcid: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
-            """
-            #### Description:
-                Search ms ready chemicals by formula.
-
-            #### path parameter:
-                dtxcid: DSSTox Compound Identifier
-
-            #### Query Parameters:
-                - None
-
-            #### Output Schema:
-                [
-                    "string"
-                ]
-
-            #### Example:
-                client = ChemSearch(api_key=api_key)
-                response = client.by_dtxcid(dtxcid="DTXCID30182", query_params={})
-            """
-            if query_params is None:
-                query_params = {}
-
-            resource_id = f"chemical/msready/search/by-dtxcid/{dtxcid}"
-
-            return self.get(f"{resource_id}", params=query_params)  
-    
-    def by_batch(self, data_list: List[str], query_params: Dict[str, Any] = None) -> Dict[str, Any]:
+        return self.get(f"{resource_id}", **kwargs)
+           
+    def by_batch(self, data_list: List[str], **kwargs) -> Dict[str, Any]:
         """
         #### Description:
             note : Search batch of values (values are separated by EOL character and maximum 200 values are allowed).
 
-        #### path parameter:
-            - None
-
-        #### Query Parameters:
-            - None
+        #### Input Parameters:
+            - data_list: List of DTXCID or DTXSID
 
         #### Output Schema:
             {
@@ -231,17 +134,13 @@ class ChemSearch(BaseAPIClient):
         
         #### Example:
             client = ChemSearch(api_key=api_key)
-            response = client.by_batch(data_list=["DTXCID30182", "DTXCID30182"], query_params={
+            response = client.by_batch(data_list=["DTXCID30182", "DTXCID30182"])
         """
         kwargs = {}
         kwargs["data"] = '\n'.join(data_list)
 
         headers = {}
         headers["Content-Type"] = "text/plain"
-
-        #print(req_body)
-        if query_params is None:
-            query_params = {}
 
         resource_id = f"chemical/search/equal/"
 
@@ -350,3 +249,185 @@ class ChemFate(BaseAPIClient):
         
         return self.get(f"{resource_id}", params=query_params)
     
+
+class ChemList(BaseAPIClient):
+    """
+    #### Description: 
+         Client for Chemical List search. This client provides methods to search chemicals based on various parameters.
+    
+    """
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+
+
+    def get_list_types(self, **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            Fetch list types.
+
+        #### Output Schema:
+            [
+                "string"
+            ]
+
+            Some of the values : ['federal', 'international', 'other', 'state']
+
+        #### Example:
+            client = ChemList(api_key=api_key)
+            response = client.get_list_types()
+        """
+        
+        resource_id = f"chemical/list/type"
+        
+        return self.get(f"{resource_id}", **kwargs)
+    
+    def get_public_list(self, op : str,  value: str, **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            Fetch public lists, based on the operator and value. The valid values for operator are "name" or "type".
+
+        #### Input parameter:
+            - value: List Name or List Type.
+              e.g list types : ['federal', 'international', 'other', 'state']
+
+        #### Query Parameters:
+            - projection : enum  -> Default: chemicallistall
+              Allowed: chemicallistall ┃ chemicallistwithdtxsids ┃ chemicallistname ┃ ccdchemicaldetaillists
+
+        #### Output Schema:
+            {
+                "shortDescription": "string",
+                "id": 0,
+                "type": "string",
+                "longDescription": "string",
+                "visibility": "string",
+                "createdAt": "1970-01-01T00:00:00.000Z",
+                "chemicalCount": 0,
+                "listName": "string",
+                "updatedAt": "1970-01-01T00:00:00.000Z",
+                "label": "string"
+            }
+        #### Example:
+            client = ChemList(api_key=api_key)
+            response = client.get_public_list(op="name", value="40CFR1164")
+            kwargs = {"params": {"projection": "chemicallistwithdtxsids"}
+            response = client.get_public_list(op="type", value="other", **kwargs)
+        """
+        if op not in ["name", "type", "dtxsid"]:
+            raise ValueError("Invalid operator. Valid values are 'name', 'dtxsid', 'type'")
+        
+        if op == "name":
+            resource_id = f"chemical/list/search/by-name/{value}"
+        elif op == "type":
+            resource_id = f"chemical/list/search/by-type/{value}"
+        elif op == "dtxsid":
+            resource_id = f"chemical/list/search/by-dtxsid/{value}"
+        
+        return self.get(f"{resource_id}", **kwargs)
+
+    def get_chem_by_list(self, op:str, list: str, word:str = None, **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            Fetch chemicals based on list name and search word. This works for strating characters, exact match or substring of search DTXSID.
+        
+        #### Input Parameters:
+            - op: Operator to search chemical. Valid values are 'start-with', 'equal', 'contain'
+            - list: List name
+            - word: Search word (DTXSID)
+              No need to provide the search word for 'listname' operator.
+
+        #### Output Schema:
+            [
+                "string"
+            ]
+        
+        #### Example:
+            client = ChemList(api_key=api_key)
+            response = client.get_chem_by_list(op="start-with", list="40CFR1164", word="DTXSID10")
+            response = client.get_chem_by_list(op="equal", list="40CFR1164", word="DTXSID101015049")
+            response = client.get_chem_by_list(op="contain", list="40CFR1164", word="1015049")
+        
+        """
+        op = op.lower()
+        if op not in ["start-with", "equal", "contain", "listname"]:
+            raise ValueError("Invalid operator. Valid values are 'start-with', 'equal', 'contain'")
+        
+        if op == "start-with":
+            resource_id = f"chemical/list/chemicals/search/start-with/{list}/{word}"
+        elif op == "equal":
+            resource_id = f"chemical/list/chemicals/search/equal/{list}/{word}"
+        elif op == "contain":
+            resource_id = f"chemical/list/chemicals/search/contain/{list}/{word}"
+        elif op == "listname":
+            resource_id = f"chemical/list/chemicals/search/by-listname/{list}"
+
+        return self.get(resource_id, **kwargs)
+    
+    def get_all_public_lists(self, **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            Fetch all public lists.
+
+        #### Output Schema:
+            [
+               {
+                 "id" : 819,
+                 "type" : "state",
+                 "label" : "WATER: Regional Monitoring Program for Water Quality in San Francisco Bay",
+                 "visibility" : "PUBLIC",
+                 "longDescription" : "The Regional Monitoring Program for Water Quality in San",
+                 "chemicalCount" : 1084,
+                 "createdAt" : "2019-11-18T09:07:36Z",
+                 "updatedAt" : "2019-11-18T09:10:30Z",
+                 "listName" : "SFEIWATER",
+                 "shortDescription" : "Chemicals monitored in the Regional Monitoring Program for Water Quality in San Francisco Bay (RMP)"
+               }
+            ]
+
+        #### Example:
+            client = ChemList(api_key=api_key)
+            response = client.get_all_public_lists()
+        """
+        resource_id = f"chemical/list/"
+        
+        return self.get(f"{resource_id}", **kwargs)
+    
+
+class ChemDetails(BaseAPIClient):
+    """
+    #### Description: 
+         Client for Chemical Details search. This client provides methods to search chemicals based on various parameters.
+    """
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+
+    def get_chemical_details(self, by :str, word: str, **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            Fetch chemical details based on DTXSID.
+
+        #### Input Parameters:
+            - dtxsid: DTXSID
+
+        #### Output Schema:
+            {
+                "casrn": "string",
+                "dtxsid": "string",
+                "dtxcid": "string",
+                "preferredName": "string",
+                "hasStructureImage": 0,
+                "smiles": "string",
+                "isMarkush": false,
+                "searchName": "string",
+                "searchValue": "string",
+                "rank": 0
+            }
+
+        #### Example:
+            client = ChemDetails(api_key=api_key)
+            response = client.get_chemical_details(dtxsid="DTXSID7020182")
+        """
+        resource_id = f"chemical/details/{dtxsid}"
+        
+        return self.get(f"{resource_id}", **kwargs)
