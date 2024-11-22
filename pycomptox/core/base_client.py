@@ -30,36 +30,16 @@ class BaseAPIClient:
 
         headers["x-api-key"] = self.api_key
         headers["Accept"] = "application/json"
-
-        # Determine the request body
-        #body = kwargs.get("body", None)
-        #kwargs.pop("body", None)        # Remove the req_body key from kwargs
-        #print(body)
-#
-        #if body is not None:
-        #    if isinstance(body, dict):
-        #        #headers["Content-Type"] = "application/json"
-        #        json_body = body
-        #        data=None
-        #    else:
-        #        #headers["Content-Type"] = "text/plain"
-        #        json_body = None
-        #        data = body
-        #else:
-        #    json_body = None
-        #    data = None
-        #print("##############", json_body, data)
-        print("kwargs>>>>>>>", kwargs)
-        print("headers>>>>>>>", headers)
+        print(">>>>>>>>", kwargs, headers)
 
         try:
-            response = requests.request(method, url, headers=headers, **kwargs) #json=json_body, data=data, **kwargs)
+            response = requests.request(method, url, headers=headers, **kwargs)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
             raise APIRequestError(f"Error during {method} request to {url}: {str(e)}")
 
-    def get(self, endpoint: str, headers: Dict[str, str] = None, params: Dict[str, Any] = None) -> Dict[str, Any]:
+    def get(self, endpoint: str, headers: Dict[str, str] = None, **kwargs) -> Dict[str, Any]:
         """
         Make a GET request to the given endpoint with optional query parameters.
 
@@ -69,8 +49,8 @@ class BaseAPIClient:
         :param kwargs: Additional arguments to pass to the request
         :return: The JSON response from the API.
         """
-        url = f"{self.base_url}/{endpoint.strip('/')}"
-        return self._request("GET", url, headers=headers, params=params)
+        url = f"{self.base_url}/{endpoint}"
+        return self._request("GET", url, headers=headers, **kwargs)
 
     def post(self, endpoint: str, headers: Dict[str, str] = None, **kwargs) -> Dict[str, Any]:
         """

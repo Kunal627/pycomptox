@@ -10,3 +10,17 @@ curl -X POST "https://api-ccte.epa.gov/chemical/fate/search/by-dtxsid/" \
  -H 'Content-Type: text/plain' \
  -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'\
  -d $'DTXCID30182\nDTXCID30182' 
+
+
+ curl -X GET "https://api-ccte.epa.gov/chemical/list/type" \
+ -H 'Accept: application/json' \
+ -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'
+
+ curl -X GET "https://api-ccte.epa.gov/chemical/list/" \
+ -H 'accept: application/json' \
+ -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'
+
+
+ curl -X GET " https://api-ccte.epa.gov/chemical/search/start-with/95-16-9" \
+ -H 'accept: application/json'  \
+ -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'
