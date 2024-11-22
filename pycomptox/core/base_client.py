@@ -2,6 +2,7 @@ from ..utils.exceptions import APIRequestError
 import requests
 from typing import Dict, Any
 from .config import Config
+import json
 
 conf = Config(api_key="my_api_key", base_url="https://api-ccte.epa.gov")
 
@@ -35,7 +36,15 @@ class BaseAPIClient:
         try:
             response = requests.request(method, url, headers=headers, **kwargs)
             response.raise_for_status()
-            return response.json()
+
+            try: 
+                return response.json()
+            
+            except json.JSONDecodeError:
+                # The APPI call to IUPAC is not returning a valid JSON
+                print("Response is not a valid JSON")
+                return response.text if response.text.strip() else None
+        
         except requests.exceptions.RequestException as e:
             raise APIRequestError(f"Error during {method} request to {url}: {str(e)}")
 

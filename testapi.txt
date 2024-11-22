@@ -24,3 +24,7 @@ curl -X POST "https://api-ccte.epa.gov/chemical/fate/search/by-dtxsid/" \
  curl -X GET " https://api-ccte.epa.gov/chemical/search/start-with/95-16-9" \
  -H 'accept: application/json'  \
  -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'
+
+curl -X GET "https://api-ccte.epa.gov/chemical/opsin/to-smiles/acetamide" \
+ -H 'accept: application/json' \
+ -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'

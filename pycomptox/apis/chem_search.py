@@ -564,3 +564,45 @@ class GHSClassExist(BaseAPIClient):
 
         return self.post(resource_id, headers=headers, **kwargs)
 
+
+class SystemIUPAC(BaseAPIClient):
+    """
+    #### Description:
+        This endpoint returns smile code, InChlKey or InChl for a chemical name.
+    """
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+
+    def get_iupac(self, chem_name: str, what:str, **kwargs) -> str:
+        """
+        #### Description:
+            This endpoint returns smile code, InChlKey or InChi for a chemical name.
+
+        #### Input Parameters:
+            - chem_name: Chemical Name
+            - what: Valid values are 'smiles', 'inchikey', 'inchi'
+
+        #### Output Schema:
+            "string"
+
+        #### Example:
+            client = SystemIUPAC(api_key=api_key)
+            response = client.get_iupac(chem_name="acetamide", what="inchikey")
+            response = client.get_iupac(chem_name="acetamide", what="inchi")
+            response = client.get_iupac(chem_name="acetamide", what="smiles")
+
+        """
+
+        what = what.lower()
+        if what not in ["smiles", "inchikey", "inchi"]:
+            raise ValueError("Invalid operator. Valid values are 'smiles', 'inchikey', 'inchi'")
+
+        if what == "smiles":
+            resource_id = f"chemical/opsin/to-smiles/{chem_name}"
+        elif what == "inchikey":
+            resource_id = f"chemical/opsin/to-inchikey/{chem_name}"
+        elif what == "inchi":
+            resource_id = f"chemical/opsin/to-inchi/{chem_name}"
+      
+        return self.get(resource_id, **kwargs)
