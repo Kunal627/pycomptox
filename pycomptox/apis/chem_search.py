@@ -163,16 +163,10 @@ class ChemFate(BaseAPIClient):
     def __init__(self, api_key: str):
         super().__init__(api_key)
 
-    def get_dtxids_batch(self, data_list: List[str], query_params: Dict[str, Any] = None) -> Dict[str, Any]:
+    def get_dtxids_batch(self, data_list: List[str], **kwargs) -> Dict[str, Any]:
         """
         ####  Description:
             Fetch fate data for a batch of DTXSIDs . Maximum 1000 DTXSIDs are allowed in a single request.
-
-        #### path parameter:
-            - None
-
-        #### Query Parameters:
-            - None
 
         #### request body:
             ["string"]
@@ -201,10 +195,6 @@ class ChemFate(BaseAPIClient):
 
         headers = {}
         headers["Content-Type"] = "application/json"
-
-        #print(req_body)
-        if query_params is None:
-            query_params = {}
 
         resource_id = f"chemical/fate/search/by-dtxsid/"
 
@@ -397,7 +387,7 @@ class ChemList(BaseAPIClient):
 class ChemDetails(BaseAPIClient):
     """
     #### Description: 
-         Client for Chemical Details search. This client provides methods to search chemicals based on various parameters.
+         Client for Chemical Details search. This client provides methods to search chemicals based on dtxsid or dtxcid.
     """
     def __init__(self, api_key: str):
         super().__init__(api_key)
@@ -405,29 +395,172 @@ class ChemDetails(BaseAPIClient):
     def get_chemical_details(self, by :str, word: str, **kwargs) -> Dict[str, Any]:
         """
         #### Description:
-            Fetch chemical details based on DTXSID.
+            Fetch chemical details based on DTXSID or DTXCID.
 
         #### Input Parameters:
-            - dtxsid: DTXSID
+            - by: Operator to search chemical. Valid values are 'dtxsid', 'dtxcid'
+            - word: DTXSID or DTXCID
+
+        #### Query Parameters:
+            Projection: Default: None
+              Allowed: chemicaldetailstandard ┃ chemicalidentifier ┃ chemicalstructure ┃ ntatoolkit ┃ ccdchemicaldetails ┃ chemicaldetailall ┃ compact
 
         #### Output Schema:
             {
+                "id": "string",
+                "qcLevelDesc": "string",
+                "qcLevel": 0,
+                "pubmedCount": 0,
+                "sourcesCount": 0,
                 "casrn": "string",
+                "activeAssays": 0,
+                "percentAssays": 0,
+                "pubchemCount": 0,
                 "dtxsid": "string",
+                "molFormula": "string",
+                "compoundId": 0,
+                "cpdataCount": 0,
                 "dtxcid": "string",
                 "preferredName": "string",
+                "relatedSubstanceCount": 0,
+                "wikipediaArticle": "string",
+                "relatedStructureCount": 0,
+                "descriptorStringTsv": "string",
+                "monoisotopicMass": 0,
                 "hasStructureImage": 0,
+                "genericSubstanceId": 0,
+                "toxcastSelect": "string",
+                "isotope": 0,
+                "pubchemCid": 0,
+                "multicomponent": 0,
+                "inchiString": "string",
+                "inchikey": "string",
+                "totalAssays": 0,
+                "iupacName": "string",
                 "smiles": "string",
-                "isMarkush": false,
-                "searchName": "string",
-                "searchValue": "string",
-                "rank": 0
+                "msReadySmiles": "string",
+                "qcNotes": "string",
+                "qsarReadySmiles": "string",
+                "pprtvLink": "string",
+                "irisLink": "string",
+                "isMarkush": false
             }
-
+        
         #### Example:
             client = ChemDetails(api_key=api_key)
-            response = client.get_chemical_details(dtxsid="DTXSID7020182")
+            response = client.get_chemical_details(by="dtxsid", word="DTXSID1020560")
+            response = client.get_chemical_details(by="dtxcid", word="DTXCID505")
         """
-        resource_id = f"chemical/details/{dtxsid}"
+
+        if by not in ["dtxsid", "dtxcid"]:
+            raise ValueError("Invalid operator. Valid values are 'dtxsid', 'dtxcid'")
+        
+        if by == "dtxsid":
+            resource_id = f"chemical/detail/search/by-dtxsid/{word}"
+        elif by == "dtxcid":
+            resource_id = f"chemical/detail/search/by-dtxcid/{word}"
         
         return self.get(f"{resource_id}", **kwargs)
+
+    def get_chemical_details_batch(self, by:str, data_list: List[str], **kwargs) -> Dict[str, Any]:
+
+        """
+        #### Description:
+            Fetch chemical details based on DTXSID or DTXCID in batch.
+
+        #### Input Parameters:
+            - by: Operator to search chemical. Valid values are 'dtxsid', 'dtxcid'
+            - data_list: List of DTXSID or DTXCID
+        
+        #### Query Parameters:
+            Projection: Default: None
+              Allowed: chemicaldetailstandard ┃ chemicalidentifier ┃ chemicalstructure ┃ ntatoolkit ┃ ccdchemicaldetails ┃ chemicaldetailall ┃ compact
+
+        #### Output Schema:
+            [{str, Any}]
+        
+        #### Example:
+            client = ChemDetails(api_key=api_key)
+            response = client.get_chemical_details_batch(by="dtxcid", data_list=["DTXCID505", "DTXCID505"])
+            response = client.get_chemical_details_batch(by="dtxsid", data_list=["DTXSID1020560", "DTXSID1020560"])
+        """
+        by = by.lower()
+        if by not in ["dtxsid", "dtxcid"]:
+            raise ValueError("Invalid operator. Valid values are 'dtxsid', 'dtxcid'")
+        
+        if by == "dtxsid":
+            resource_id = f"chemical/detail/search/by-dtxsid/"
+        elif by == "dtxcid":
+            resource_id = f"chemical/detail/search/by-dtxcid/"
+        
+        kwargs = {}
+        kwargs["json"] = data_list
+
+        headers = {}
+        headers["Content-Type"] = "application/json"
+
+        return self.post(resource_id, headers=headers, **kwargs)
+    
+
+class GHSClassExist(BaseAPIClient):
+    """
+    #### Description:
+        This endpoint will return Y if Pubchem has GHS Safety data otherwise it will return N.
+    """
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+    
+    def if_class_exist(self, dtx_id:str, **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            This endpoint will return Y if Pubchem has GHS Safety data otherwise it will return N.
+
+        #### Input Parameters:
+            - dtx: DTXSID
+
+        #### Output Schema:
+            {
+            "dtxsid": "string",
+            "isSafetyData": false,
+            "safetyUrl": "string"
+            }
+        #### Example:
+            client = GHSClassExist(api_key=api_key)
+            response = client.if_class_exist(dtx="DTXSID1020560")
+        """ 
+        resource_id = f"chemical/ghslink/to-dtxsid/{dtx_id}"
+        
+        return self.get(f"{resource_id}", **kwargs)
+
+    
+    def if_class_exist_batch(self, dtx_id_list: List[str], **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            Similar to if_class_exist but for batch of DTXSIDs.
+        
+        #### Input Parameters:
+            - dtx_id_list: List of DTXSIDs
+        
+        #### Output Schema:
+            [
+                {
+                    "dtxsid": "string",
+                    "isSafetyData": false,
+                    "safetyUrl": "string"
+                }
+            ]
+        
+        #### Example:
+            client = GHSClassExist(api_key=api_key)
+            response = client.if_class_exist_batch(dtx_id_list=["DTXSID1020560"])
+        """
+        kwargs = {}
+        kwargs["json"] = dtx_id_list
+
+        headers = {}
+        headers["Content-Type"] = "application/json"
+        resource_id = f"chemical/ghslink/to-dtxsid/" 
+
+        return self.post(resource_id, headers=headers, **kwargs)
+
