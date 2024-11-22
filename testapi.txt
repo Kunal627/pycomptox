@@ -28,3 +28,9 @@ curl -X POST "https://api-ccte.epa.gov/chemical/fate/search/by-dtxsid/" \
 curl -X GET "https://api-ccte.epa.gov/chemical/opsin/to-smiles/acetamide" \
  -H 'accept: application/json' \
  -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47'
+
+curl -X POST "https://api-ccte.epa.gov/chemical/property/search/by-dtxsid/" \
+ -H 'accept: application/json'\
+ -H 'x-api-key: 5506ebc6-9485-11ef-9c61-325096b39f47' \
+ -H 'content-type: application/json' \
+ -d '["DTXSID7020182"]' 

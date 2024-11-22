@@ -606,3 +606,120 @@ class SystemIUPAC(BaseAPIClient):
             resource_id = f"chemical/opsin/to-inchi/{chem_name}"
       
         return self.get(resource_id, **kwargs)
+    
+
+class ChemProperties(BaseAPIClient):
+    """
+    #### Description:
+        Get Chemical properties.
+    """
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+
+    def get_properties(self, by: str, params: Dict[str, Any] = None , **kwargs) -> Dict[str, Any]:
+        """
+        #### Description:
+            Get Chemical properties.
+
+        #### Input Parameters:
+            - by: Operator to search chemical. Valid values are 'propid', 'dtxsid', 'predicted', 'experimental'
+            - params: Dict of parameters based on operator.
+
+        #### Output Schema:
+            When by = "dtxsid"
+
+            [
+                {
+                "name": "string",
+                "value": 0,
+                "id": 0,
+                "source": "string",
+                "dtxsid": "string",
+                "dtxcid": "string",
+                "unit": "string",
+                "propertyId": "string",
+                "propType": "string",
+                "description": "string"
+                }
+            ]
+
+            when by = "experimental" or "predicted"
+            [
+                {
+                "name": "string",
+                "propertyId": "string",
+                "propType": "string"
+                }
+            ]
+
+        #### Example:
+            client = ChemProperties(api_key=api_key)
+            response = client.get_properties(by="dtxsid", params = {"dtxsid": "DTXSID7020182"})
+            response = client.get_properties(by="propid", params={"propertyid": "density", "start": 1.311, "end": 1.313})
+            response = client.get_properties(by="experimental")
+            response = client.get_properties(by="predicted")
+        
+        """
+
+        by = by.lower()
+        if by not in ["propid", "dtxsid", "predicted", "experimental"]:
+            raise ValueError("Invalid operator. Valid values are 'dtxsid', 'dtxcid', 'predicted', 'experimental'")
+        
+        if by == "propid":
+            if not all(key in params for key in ["start", "end", "propertyid"]):
+                raise ValueError("Please provide propertyid, start and end values in params")
+            resource_id = f"chemical/property/search/by-range/{params['propertyid']}/{params['start']}/{params['end']}"
+        
+        elif by == "dtxsid":
+            if "dtxsid" not in params:
+                raise ValueError("Please provide dtxsid in params")
+            resource_id = f"chemical/property/search/by-dtxsid/{params['dtxsid']}"
+
+        elif by == "experimental":
+            resource_id = f"chemical/property/experimental/name"
+
+        elif by == "predicted":
+            resource_id = f"chemical/property/predicted/name"
+        
+        return self.get(resource_id, **kwargs)
+
+    def get_properties_batch(self, dtxsid_list: List[str], **kwargs) -> Dict[str, Any]:
+        
+        """
+        #### Description:
+            Get Chemical properties in batch.
+
+        #### Input Parameters:
+            - dtxsid_list: List of DTXSIDs
+        
+        #### Output Schema:
+            [
+                {
+                "name": "string",
+                "value": 0,
+                "id": 0,
+                "source": "string",
+                "dtxsid": "string",
+                "dtxcid": "string",
+                "unit": "string",
+                "propertyId": "string",
+                "propType": "string",
+                "description": "string"
+                }
+            ]
+
+        #### Example:
+            client = ChemProperties(api_key=api_key)
+            response = client.get_properties_batch(dtxsid_list=["DTXSID7020182"])
+        """
+        kwargs = {}
+        kwargs["json"] = dtxsid_list
+
+        headers = {}
+        headers["Content-Type"] = "application/json"
+        resource_id = f"chemical/property/search/by-dtxsid/" 
+
+        return self.post(resource_id, headers=headers, **kwargs)
+
+

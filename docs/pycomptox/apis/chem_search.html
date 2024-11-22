@@ -117,6 +117,33 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#SystemIUPAC">SystemIUPAC</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#SystemIUPAC.__init__">SystemIUPAC</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SystemIUPAC.get_iupac">get_iupac</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#ChemProperties">ChemProperties</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#ChemProperties.__init__">ChemProperties</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#ChemProperties.get_properties">get_properties</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#ChemProperties.get_properties_batch">get_properties_batch</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -703,6 +730,164 @@
 </span><span id="L-563"><a href="#L-563"><span class="linenos">563</span></a>        <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/ghslink/to-dtxsid/&quot;</span> 
 </span><span id="L-564"><a href="#L-564"><span class="linenos">564</span></a>
 </span><span id="L-565"><a href="#L-565"><span class="linenos">565</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="L-566"><a href="#L-566"><span class="linenos">566</span></a>
+</span><span id="L-567"><a href="#L-567"><span class="linenos">567</span></a>
+</span><span id="L-568"><a href="#L-568"><span class="linenos">568</span></a><span class="k">class</span> <span class="nc">SystemIUPAC</span><span class="p">(</span><span class="n">BaseAPIClient</span><span class="p">):</span>
+</span><span id="L-569"><a href="#L-569"><span class="linenos">569</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-570"><a href="#L-570"><span class="linenos">570</span></a><span class="sd">    #### Description:</span>
+</span><span id="L-571"><a href="#L-571"><span class="linenos">571</span></a><span class="sd">        This endpoint returns smile code, InChlKey or InChl for a chemical name.</span>
+</span><span id="L-572"><a href="#L-572"><span class="linenos">572</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-573"><a href="#L-573"><span class="linenos">573</span></a>
+</span><span id="L-574"><a href="#L-574"><span class="linenos">574</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-575"><a href="#L-575"><span class="linenos">575</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+</span><span id="L-576"><a href="#L-576"><span class="linenos">576</span></a>
+</span><span id="L-577"><a href="#L-577"><span class="linenos">577</span></a>    <span class="k">def</span> <span class="nf">get_iupac</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chem_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="L-578"><a href="#L-578"><span class="linenos">578</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-579"><a href="#L-579"><span class="linenos">579</span></a><span class="sd">        #### Description:</span>
+</span><span id="L-580"><a href="#L-580"><span class="linenos">580</span></a><span class="sd">            This endpoint returns smile code, InChlKey or InChi for a chemical name.</span>
+</span><span id="L-581"><a href="#L-581"><span class="linenos">581</span></a>
+</span><span id="L-582"><a href="#L-582"><span class="linenos">582</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="L-583"><a href="#L-583"><span class="linenos">583</span></a><span class="sd">            - chem_name: Chemical Name</span>
+</span><span id="L-584"><a href="#L-584"><span class="linenos">584</span></a><span class="sd">            - what: Valid values are &#39;smiles&#39;, &#39;inchikey&#39;, &#39;inchi&#39;</span>
+</span><span id="L-585"><a href="#L-585"><span class="linenos">585</span></a>
+</span><span id="L-586"><a href="#L-586"><span class="linenos">586</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="L-587"><a href="#L-587"><span class="linenos">587</span></a><span class="sd">            &quot;string&quot;</span>
+</span><span id="L-588"><a href="#L-588"><span class="linenos">588</span></a>
+</span><span id="L-589"><a href="#L-589"><span class="linenos">589</span></a><span class="sd">        #### Example:</span>
+</span><span id="L-590"><a href="#L-590"><span class="linenos">590</span></a><span class="sd">            client = SystemIUPAC(api_key=api_key)</span>
+</span><span id="L-591"><a href="#L-591"><span class="linenos">591</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;inchikey&quot;)</span>
+</span><span id="L-592"><a href="#L-592"><span class="linenos">592</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;inchi&quot;)</span>
+</span><span id="L-593"><a href="#L-593"><span class="linenos">593</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;smiles&quot;)</span>
+</span><span id="L-594"><a href="#L-594"><span class="linenos">594</span></a>
+</span><span id="L-595"><a href="#L-595"><span class="linenos">595</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-596"><a href="#L-596"><span class="linenos">596</span></a>
+</span><span id="L-597"><a href="#L-597"><span class="linenos">597</span></a>        <span class="n">what</span> <span class="o">=</span> <span class="n">what</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="L-598"><a href="#L-598"><span class="linenos">598</span></a>        <span class="k">if</span> <span class="n">what</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;smiles&quot;</span><span class="p">,</span> <span class="s2">&quot;inchikey&quot;</span><span class="p">,</span> <span class="s2">&quot;inchi&quot;</span><span class="p">]:</span>
+</span><span id="L-599"><a href="#L-599"><span class="linenos">599</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid operator. Valid values are &#39;smiles&#39;, &#39;inchikey&#39;, &#39;inchi&#39;&quot;</span><span class="p">)</span>
+</span><span id="L-600"><a href="#L-600"><span class="linenos">600</span></a>
+</span><span id="L-601"><a href="#L-601"><span class="linenos">601</span></a>        <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;smiles&quot;</span><span class="p">:</span>
+</span><span id="L-602"><a href="#L-602"><span class="linenos">602</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-smiles/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-603"><a href="#L-603"><span class="linenos">603</span></a>        <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;inchikey&quot;</span><span class="p">:</span>
+</span><span id="L-604"><a href="#L-604"><span class="linenos">604</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-inchikey/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-605"><a href="#L-605"><span class="linenos">605</span></a>        <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;inchi&quot;</span><span class="p">:</span>
+</span><span id="L-606"><a href="#L-606"><span class="linenos">606</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-inchi/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-607"><a href="#L-607"><span class="linenos">607</span></a>      
+</span><span id="L-608"><a href="#L-608"><span class="linenos">608</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="L-609"><a href="#L-609"><span class="linenos">609</span></a>    
+</span><span id="L-610"><a href="#L-610"><span class="linenos">610</span></a>
+</span><span id="L-611"><a href="#L-611"><span class="linenos">611</span></a><span class="k">class</span> <span class="nc">ChemProperties</span><span class="p">(</span><span class="n">BaseAPIClient</span><span class="p">):</span>
+</span><span id="L-612"><a href="#L-612"><span class="linenos">612</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-613"><a href="#L-613"><span class="linenos">613</span></a><span class="sd">    #### Description:</span>
+</span><span id="L-614"><a href="#L-614"><span class="linenos">614</span></a><span class="sd">        Get Chemical properties.</span>
+</span><span id="L-615"><a href="#L-615"><span class="linenos">615</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="L-616"><a href="#L-616"><span class="linenos">616</span></a>
+</span><span id="L-617"><a href="#L-617"><span class="linenos">617</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="L-618"><a href="#L-618"><span class="linenos">618</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+</span><span id="L-619"><a href="#L-619"><span class="linenos">619</span></a>
+</span><span id="L-620"><a href="#L-620"><span class="linenos">620</span></a>    <span class="k">def</span> <span class="nf">get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-621"><a href="#L-621"><span class="linenos">621</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-622"><a href="#L-622"><span class="linenos">622</span></a><span class="sd">        #### Description:</span>
+</span><span id="L-623"><a href="#L-623"><span class="linenos">623</span></a><span class="sd">            Get Chemical properties.</span>
+</span><span id="L-624"><a href="#L-624"><span class="linenos">624</span></a>
+</span><span id="L-625"><a href="#L-625"><span class="linenos">625</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="L-626"><a href="#L-626"><span class="linenos">626</span></a><span class="sd">            - by: Operator to search chemical. Valid values are &#39;propid&#39;, &#39;dtxsid&#39;, &#39;predicted&#39;, &#39;experimental&#39;</span>
+</span><span id="L-627"><a href="#L-627"><span class="linenos">627</span></a><span class="sd">            - params: Dict of parameters based on operator.</span>
+</span><span id="L-628"><a href="#L-628"><span class="linenos">628</span></a>
+</span><span id="L-629"><a href="#L-629"><span class="linenos">629</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="L-630"><a href="#L-630"><span class="linenos">630</span></a><span class="sd">            When by = &quot;dtxsid&quot;</span>
+</span><span id="L-631"><a href="#L-631"><span class="linenos">631</span></a>
+</span><span id="L-632"><a href="#L-632"><span class="linenos">632</span></a><span class="sd">            [</span>
+</span><span id="L-633"><a href="#L-633"><span class="linenos">633</span></a><span class="sd">                {</span>
+</span><span id="L-634"><a href="#L-634"><span class="linenos">634</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="L-635"><a href="#L-635"><span class="linenos">635</span></a><span class="sd">                &quot;value&quot;: 0,</span>
+</span><span id="L-636"><a href="#L-636"><span class="linenos">636</span></a><span class="sd">                &quot;id&quot;: 0,</span>
+</span><span id="L-637"><a href="#L-637"><span class="linenos">637</span></a><span class="sd">                &quot;source&quot;: &quot;string&quot;,</span>
+</span><span id="L-638"><a href="#L-638"><span class="linenos">638</span></a><span class="sd">                &quot;dtxsid&quot;: &quot;string&quot;,</span>
+</span><span id="L-639"><a href="#L-639"><span class="linenos">639</span></a><span class="sd">                &quot;dtxcid&quot;: &quot;string&quot;,</span>
+</span><span id="L-640"><a href="#L-640"><span class="linenos">640</span></a><span class="sd">                &quot;unit&quot;: &quot;string&quot;,</span>
+</span><span id="L-641"><a href="#L-641"><span class="linenos">641</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="L-642"><a href="#L-642"><span class="linenos">642</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;,</span>
+</span><span id="L-643"><a href="#L-643"><span class="linenos">643</span></a><span class="sd">                &quot;description&quot;: &quot;string&quot;</span>
+</span><span id="L-644"><a href="#L-644"><span class="linenos">644</span></a><span class="sd">                }</span>
+</span><span id="L-645"><a href="#L-645"><span class="linenos">645</span></a><span class="sd">            ]</span>
+</span><span id="L-646"><a href="#L-646"><span class="linenos">646</span></a>
+</span><span id="L-647"><a href="#L-647"><span class="linenos">647</span></a><span class="sd">            when by = &quot;experimental&quot; or &quot;predicted&quot;</span>
+</span><span id="L-648"><a href="#L-648"><span class="linenos">648</span></a><span class="sd">            [</span>
+</span><span id="L-649"><a href="#L-649"><span class="linenos">649</span></a><span class="sd">                {</span>
+</span><span id="L-650"><a href="#L-650"><span class="linenos">650</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="L-651"><a href="#L-651"><span class="linenos">651</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="L-652"><a href="#L-652"><span class="linenos">652</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;</span>
+</span><span id="L-653"><a href="#L-653"><span class="linenos">653</span></a><span class="sd">                }</span>
+</span><span id="L-654"><a href="#L-654"><span class="linenos">654</span></a><span class="sd">            ]</span>
+</span><span id="L-655"><a href="#L-655"><span class="linenos">655</span></a>
+</span><span id="L-656"><a href="#L-656"><span class="linenos">656</span></a><span class="sd">        #### Example:</span>
+</span><span id="L-657"><a href="#L-657"><span class="linenos">657</span></a><span class="sd">            client = ChemProperties(api_key=api_key)</span>
+</span><span id="L-658"><a href="#L-658"><span class="linenos">658</span></a><span class="sd">            response = client.get_properties(by=&quot;dtxsid&quot;, params = {&quot;dtxsid&quot;: &quot;DTXSID7020182&quot;})</span>
+</span><span id="L-659"><a href="#L-659"><span class="linenos">659</span></a><span class="sd">            response = client.get_properties(by=&quot;propid&quot;, params={&quot;propertyid&quot;: &quot;density&quot;, &quot;start&quot;: 1.311, &quot;end&quot;: 1.313})</span>
+</span><span id="L-660"><a href="#L-660"><span class="linenos">660</span></a><span class="sd">            response = client.get_properties(by=&quot;experimental&quot;)</span>
+</span><span id="L-661"><a href="#L-661"><span class="linenos">661</span></a><span class="sd">            response = client.get_properties(by=&quot;predicted&quot;)</span>
+</span><span id="L-662"><a href="#L-662"><span class="linenos">662</span></a><span class="sd">        </span>
+</span><span id="L-663"><a href="#L-663"><span class="linenos">663</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-664"><a href="#L-664"><span class="linenos">664</span></a>
+</span><span id="L-665"><a href="#L-665"><span class="linenos">665</span></a>        <span class="n">by</span> <span class="o">=</span> <span class="n">by</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="L-666"><a href="#L-666"><span class="linenos">666</span></a>        <span class="k">if</span> <span class="n">by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;propid&quot;</span><span class="p">,</span> <span class="s2">&quot;dtxsid&quot;</span><span class="p">,</span> <span class="s2">&quot;predicted&quot;</span><span class="p">,</span> <span class="s2">&quot;experimental&quot;</span><span class="p">]:</span>
+</span><span id="L-667"><a href="#L-667"><span class="linenos">667</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid operator. Valid values are &#39;dtxsid&#39;, &#39;dtxcid&#39;, &#39;predicted&#39;, &#39;experimental&#39;&quot;</span><span class="p">)</span>
+</span><span id="L-668"><a href="#L-668"><span class="linenos">668</span></a>        
+</span><span id="L-669"><a href="#L-669"><span class="linenos">669</span></a>        <span class="k">if</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;propid&quot;</span><span class="p">:</span>
+</span><span id="L-670"><a href="#L-670"><span class="linenos">670</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">params</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;propertyid&quot;</span><span class="p">]):</span>
+</span><span id="L-671"><a href="#L-671"><span class="linenos">671</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please provide propertyid, start and end values in params&quot;</span><span class="p">)</span>
+</span><span id="L-672"><a href="#L-672"><span class="linenos">672</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-range/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;propertyid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-673"><a href="#L-673"><span class="linenos">673</span></a>        
+</span><span id="L-674"><a href="#L-674"><span class="linenos">674</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;dtxsid&quot;</span><span class="p">:</span>
+</span><span id="L-675"><a href="#L-675"><span class="linenos">675</span></a>            <span class="k">if</span> <span class="s2">&quot;dtxsid&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+</span><span id="L-676"><a href="#L-676"><span class="linenos">676</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please provide dtxsid in params&quot;</span><span class="p">)</span>
+</span><span id="L-677"><a href="#L-677"><span class="linenos">677</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-dtxsid/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dtxsid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="L-678"><a href="#L-678"><span class="linenos">678</span></a>
+</span><span id="L-679"><a href="#L-679"><span class="linenos">679</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;experimental&quot;</span><span class="p">:</span>
+</span><span id="L-680"><a href="#L-680"><span class="linenos">680</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/experimental/name&quot;</span>
+</span><span id="L-681"><a href="#L-681"><span class="linenos">681</span></a>
+</span><span id="L-682"><a href="#L-682"><span class="linenos">682</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;predicted&quot;</span><span class="p">:</span>
+</span><span id="L-683"><a href="#L-683"><span class="linenos">683</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/predicted/name&quot;</span>
+</span><span id="L-684"><a href="#L-684"><span class="linenos">684</span></a>        
+</span><span id="L-685"><a href="#L-685"><span class="linenos">685</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="L-686"><a href="#L-686"><span class="linenos">686</span></a>
+</span><span id="L-687"><a href="#L-687"><span class="linenos">687</span></a>    <span class="k">def</span> <span class="nf">get_properties_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtxsid_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="L-688"><a href="#L-688"><span class="linenos">688</span></a><span class="w">        </span>
+</span><span id="L-689"><a href="#L-689"><span class="linenos">689</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="L-690"><a href="#L-690"><span class="linenos">690</span></a><span class="sd">        #### Description:</span>
+</span><span id="L-691"><a href="#L-691"><span class="linenos">691</span></a><span class="sd">            Get Chemical properties in batch.</span>
+</span><span id="L-692"><a href="#L-692"><span class="linenos">692</span></a>
+</span><span id="L-693"><a href="#L-693"><span class="linenos">693</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="L-694"><a href="#L-694"><span class="linenos">694</span></a><span class="sd">            - dtxsid_list: List of DTXSIDs</span>
+</span><span id="L-695"><a href="#L-695"><span class="linenos">695</span></a><span class="sd">        </span>
+</span><span id="L-696"><a href="#L-696"><span class="linenos">696</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="L-697"><a href="#L-697"><span class="linenos">697</span></a><span class="sd">            [</span>
+</span><span id="L-698"><a href="#L-698"><span class="linenos">698</span></a><span class="sd">                {</span>
+</span><span id="L-699"><a href="#L-699"><span class="linenos">699</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="L-700"><a href="#L-700"><span class="linenos">700</span></a><span class="sd">                &quot;value&quot;: 0,</span>
+</span><span id="L-701"><a href="#L-701"><span class="linenos">701</span></a><span class="sd">                &quot;id&quot;: 0,</span>
+</span><span id="L-702"><a href="#L-702"><span class="linenos">702</span></a><span class="sd">                &quot;source&quot;: &quot;string&quot;,</span>
+</span><span id="L-703"><a href="#L-703"><span class="linenos">703</span></a><span class="sd">                &quot;dtxsid&quot;: &quot;string&quot;,</span>
+</span><span id="L-704"><a href="#L-704"><span class="linenos">704</span></a><span class="sd">                &quot;dtxcid&quot;: &quot;string&quot;,</span>
+</span><span id="L-705"><a href="#L-705"><span class="linenos">705</span></a><span class="sd">                &quot;unit&quot;: &quot;string&quot;,</span>
+</span><span id="L-706"><a href="#L-706"><span class="linenos">706</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="L-707"><a href="#L-707"><span class="linenos">707</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;,</span>
+</span><span id="L-708"><a href="#L-708"><span class="linenos">708</span></a><span class="sd">                &quot;description&quot;: &quot;string&quot;</span>
+</span><span id="L-709"><a href="#L-709"><span class="linenos">709</span></a><span class="sd">                }</span>
+</span><span id="L-710"><a href="#L-710"><span class="linenos">710</span></a><span class="sd">            ]</span>
+</span><span id="L-711"><a href="#L-711"><span class="linenos">711</span></a>
+</span><span id="L-712"><a href="#L-712"><span class="linenos">712</span></a><span class="sd">        #### Example:</span>
+</span><span id="L-713"><a href="#L-713"><span class="linenos">713</span></a><span class="sd">            client = ChemProperties(api_key=api_key)</span>
+</span><span id="L-714"><a href="#L-714"><span class="linenos">714</span></a><span class="sd">            response = client.get_properties_batch(dtxsid_list=[&quot;DTXSID7020182&quot;])</span>
+</span><span id="L-715"><a href="#L-715"><span class="linenos">715</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="L-716"><a href="#L-716"><span class="linenos">716</span></a>        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="L-717"><a href="#L-717"><span class="linenos">717</span></a>        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;json&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dtxsid_list</span>
+</span><span id="L-718"><a href="#L-718"><span class="linenos">718</span></a>
+</span><span id="L-719"><a href="#L-719"><span class="linenos">719</span></a>        <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="L-720"><a href="#L-720"><span class="linenos">720</span></a>        <span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;application/json&quot;</span>
+</span><span id="L-721"><a href="#L-721"><span class="linenos">721</span></a>        <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-dtxsid/&quot;</span> 
+</span><span id="L-722"><a href="#L-722"><span class="linenos">722</span></a>
+</span><span id="L-723"><a href="#L-723"><span class="linenos">723</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -2693,6 +2878,559 @@ response = client.if_class_exist_batch(dtx_id_list=["DTXSID1020560"])
                 <dd id="GHSClassExist.get" class="function"><a href="../core/base_client.html#BaseAPIClient.get">get</a></dd>
                 <dd id="GHSClassExist.post" class="function"><a href="../core/base_client.html#BaseAPIClient.post">post</a></dd>
                 <dd id="GHSClassExist.put" class="function"><a href="../core/base_client.html#BaseAPIClient.put">put</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="SystemIUPAC">
+                            <input id="SystemIUPAC-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">SystemIUPAC</span><wbr>(<span class="base"><a href="../core/base_client.html#BaseAPIClient">pycomptox.core.base_client.BaseAPIClient</a></span>):
+
+                <label class="view-source-button" for="SystemIUPAC-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SystemIUPAC"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SystemIUPAC-569"><a href="#SystemIUPAC-569"><span class="linenos">569</span></a><span class="k">class</span> <span class="nc">SystemIUPAC</span><span class="p">(</span><span class="n">BaseAPIClient</span><span class="p">):</span>
+</span><span id="SystemIUPAC-570"><a href="#SystemIUPAC-570"><span class="linenos">570</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="SystemIUPAC-571"><a href="#SystemIUPAC-571"><span class="linenos">571</span></a><span class="sd">    #### Description:</span>
+</span><span id="SystemIUPAC-572"><a href="#SystemIUPAC-572"><span class="linenos">572</span></a><span class="sd">        This endpoint returns smile code, InChlKey or InChl for a chemical name.</span>
+</span><span id="SystemIUPAC-573"><a href="#SystemIUPAC-573"><span class="linenos">573</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="SystemIUPAC-574"><a href="#SystemIUPAC-574"><span class="linenos">574</span></a>
+</span><span id="SystemIUPAC-575"><a href="#SystemIUPAC-575"><span class="linenos">575</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="SystemIUPAC-576"><a href="#SystemIUPAC-576"><span class="linenos">576</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+</span><span id="SystemIUPAC-577"><a href="#SystemIUPAC-577"><span class="linenos">577</span></a>
+</span><span id="SystemIUPAC-578"><a href="#SystemIUPAC-578"><span class="linenos">578</span></a>    <span class="k">def</span> <span class="nf">get_iupac</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chem_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="SystemIUPAC-579"><a href="#SystemIUPAC-579"><span class="linenos">579</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="SystemIUPAC-580"><a href="#SystemIUPAC-580"><span class="linenos">580</span></a><span class="sd">        #### Description:</span>
+</span><span id="SystemIUPAC-581"><a href="#SystemIUPAC-581"><span class="linenos">581</span></a><span class="sd">            This endpoint returns smile code, InChlKey or InChi for a chemical name.</span>
+</span><span id="SystemIUPAC-582"><a href="#SystemIUPAC-582"><span class="linenos">582</span></a>
+</span><span id="SystemIUPAC-583"><a href="#SystemIUPAC-583"><span class="linenos">583</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="SystemIUPAC-584"><a href="#SystemIUPAC-584"><span class="linenos">584</span></a><span class="sd">            - chem_name: Chemical Name</span>
+</span><span id="SystemIUPAC-585"><a href="#SystemIUPAC-585"><span class="linenos">585</span></a><span class="sd">            - what: Valid values are &#39;smiles&#39;, &#39;inchikey&#39;, &#39;inchi&#39;</span>
+</span><span id="SystemIUPAC-586"><a href="#SystemIUPAC-586"><span class="linenos">586</span></a>
+</span><span id="SystemIUPAC-587"><a href="#SystemIUPAC-587"><span class="linenos">587</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="SystemIUPAC-588"><a href="#SystemIUPAC-588"><span class="linenos">588</span></a><span class="sd">            &quot;string&quot;</span>
+</span><span id="SystemIUPAC-589"><a href="#SystemIUPAC-589"><span class="linenos">589</span></a>
+</span><span id="SystemIUPAC-590"><a href="#SystemIUPAC-590"><span class="linenos">590</span></a><span class="sd">        #### Example:</span>
+</span><span id="SystemIUPAC-591"><a href="#SystemIUPAC-591"><span class="linenos">591</span></a><span class="sd">            client = SystemIUPAC(api_key=api_key)</span>
+</span><span id="SystemIUPAC-592"><a href="#SystemIUPAC-592"><span class="linenos">592</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;inchikey&quot;)</span>
+</span><span id="SystemIUPAC-593"><a href="#SystemIUPAC-593"><span class="linenos">593</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;inchi&quot;)</span>
+</span><span id="SystemIUPAC-594"><a href="#SystemIUPAC-594"><span class="linenos">594</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;smiles&quot;)</span>
+</span><span id="SystemIUPAC-595"><a href="#SystemIUPAC-595"><span class="linenos">595</span></a>
+</span><span id="SystemIUPAC-596"><a href="#SystemIUPAC-596"><span class="linenos">596</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="SystemIUPAC-597"><a href="#SystemIUPAC-597"><span class="linenos">597</span></a>
+</span><span id="SystemIUPAC-598"><a href="#SystemIUPAC-598"><span class="linenos">598</span></a>        <span class="n">what</span> <span class="o">=</span> <span class="n">what</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="SystemIUPAC-599"><a href="#SystemIUPAC-599"><span class="linenos">599</span></a>        <span class="k">if</span> <span class="n">what</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;smiles&quot;</span><span class="p">,</span> <span class="s2">&quot;inchikey&quot;</span><span class="p">,</span> <span class="s2">&quot;inchi&quot;</span><span class="p">]:</span>
+</span><span id="SystemIUPAC-600"><a href="#SystemIUPAC-600"><span class="linenos">600</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid operator. Valid values are &#39;smiles&#39;, &#39;inchikey&#39;, &#39;inchi&#39;&quot;</span><span class="p">)</span>
+</span><span id="SystemIUPAC-601"><a href="#SystemIUPAC-601"><span class="linenos">601</span></a>
+</span><span id="SystemIUPAC-602"><a href="#SystemIUPAC-602"><span class="linenos">602</span></a>        <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;smiles&quot;</span><span class="p">:</span>
+</span><span id="SystemIUPAC-603"><a href="#SystemIUPAC-603"><span class="linenos">603</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-smiles/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="SystemIUPAC-604"><a href="#SystemIUPAC-604"><span class="linenos">604</span></a>        <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;inchikey&quot;</span><span class="p">:</span>
+</span><span id="SystemIUPAC-605"><a href="#SystemIUPAC-605"><span class="linenos">605</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-inchikey/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="SystemIUPAC-606"><a href="#SystemIUPAC-606"><span class="linenos">606</span></a>        <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;inchi&quot;</span><span class="p">:</span>
+</span><span id="SystemIUPAC-607"><a href="#SystemIUPAC-607"><span class="linenos">607</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-inchi/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="SystemIUPAC-608"><a href="#SystemIUPAC-608"><span class="linenos">608</span></a>      
+</span><span id="SystemIUPAC-609"><a href="#SystemIUPAC-609"><span class="linenos">609</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><h4 id="description">Description:</h4>
+
+<pre><code>This endpoint returns smile code, InChlKey or InChl for a chemical name.
+</code></pre>
+</div>
+
+
+                            <div id="SystemIUPAC.__init__" class="classattr">
+                                        <input id="SystemIUPAC.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">SystemIUPAC</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span></span>)</span>
+
+                <label class="view-source-button" for="SystemIUPAC.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SystemIUPAC.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SystemIUPAC.__init__-575"><a href="#SystemIUPAC.__init__-575"><span class="linenos">575</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="SystemIUPAC.__init__-576"><a href="#SystemIUPAC.__init__-576"><span class="linenos">576</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="SystemIUPAC.get_iupac" class="classattr">
+                                        <input id="SystemIUPAC.get_iupac-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_iupac</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">chem_name</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">what</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+
+                <label class="view-source-button" for="SystemIUPAC.get_iupac-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SystemIUPAC.get_iupac"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SystemIUPAC.get_iupac-578"><a href="#SystemIUPAC.get_iupac-578"><span class="linenos">578</span></a>    <span class="k">def</span> <span class="nf">get_iupac</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">chem_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">what</span><span class="p">:</span><span class="nb">str</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="SystemIUPAC.get_iupac-579"><a href="#SystemIUPAC.get_iupac-579"><span class="linenos">579</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="SystemIUPAC.get_iupac-580"><a href="#SystemIUPAC.get_iupac-580"><span class="linenos">580</span></a><span class="sd">        #### Description:</span>
+</span><span id="SystemIUPAC.get_iupac-581"><a href="#SystemIUPAC.get_iupac-581"><span class="linenos">581</span></a><span class="sd">            This endpoint returns smile code, InChlKey or InChi for a chemical name.</span>
+</span><span id="SystemIUPAC.get_iupac-582"><a href="#SystemIUPAC.get_iupac-582"><span class="linenos">582</span></a>
+</span><span id="SystemIUPAC.get_iupac-583"><a href="#SystemIUPAC.get_iupac-583"><span class="linenos">583</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="SystemIUPAC.get_iupac-584"><a href="#SystemIUPAC.get_iupac-584"><span class="linenos">584</span></a><span class="sd">            - chem_name: Chemical Name</span>
+</span><span id="SystemIUPAC.get_iupac-585"><a href="#SystemIUPAC.get_iupac-585"><span class="linenos">585</span></a><span class="sd">            - what: Valid values are &#39;smiles&#39;, &#39;inchikey&#39;, &#39;inchi&#39;</span>
+</span><span id="SystemIUPAC.get_iupac-586"><a href="#SystemIUPAC.get_iupac-586"><span class="linenos">586</span></a>
+</span><span id="SystemIUPAC.get_iupac-587"><a href="#SystemIUPAC.get_iupac-587"><span class="linenos">587</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="SystemIUPAC.get_iupac-588"><a href="#SystemIUPAC.get_iupac-588"><span class="linenos">588</span></a><span class="sd">            &quot;string&quot;</span>
+</span><span id="SystemIUPAC.get_iupac-589"><a href="#SystemIUPAC.get_iupac-589"><span class="linenos">589</span></a>
+</span><span id="SystemIUPAC.get_iupac-590"><a href="#SystemIUPAC.get_iupac-590"><span class="linenos">590</span></a><span class="sd">        #### Example:</span>
+</span><span id="SystemIUPAC.get_iupac-591"><a href="#SystemIUPAC.get_iupac-591"><span class="linenos">591</span></a><span class="sd">            client = SystemIUPAC(api_key=api_key)</span>
+</span><span id="SystemIUPAC.get_iupac-592"><a href="#SystemIUPAC.get_iupac-592"><span class="linenos">592</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;inchikey&quot;)</span>
+</span><span id="SystemIUPAC.get_iupac-593"><a href="#SystemIUPAC.get_iupac-593"><span class="linenos">593</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;inchi&quot;)</span>
+</span><span id="SystemIUPAC.get_iupac-594"><a href="#SystemIUPAC.get_iupac-594"><span class="linenos">594</span></a><span class="sd">            response = client.get_iupac(chem_name=&quot;acetamide&quot;, what=&quot;smiles&quot;)</span>
+</span><span id="SystemIUPAC.get_iupac-595"><a href="#SystemIUPAC.get_iupac-595"><span class="linenos">595</span></a>
+</span><span id="SystemIUPAC.get_iupac-596"><a href="#SystemIUPAC.get_iupac-596"><span class="linenos">596</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="SystemIUPAC.get_iupac-597"><a href="#SystemIUPAC.get_iupac-597"><span class="linenos">597</span></a>
+</span><span id="SystemIUPAC.get_iupac-598"><a href="#SystemIUPAC.get_iupac-598"><span class="linenos">598</span></a>        <span class="n">what</span> <span class="o">=</span> <span class="n">what</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="SystemIUPAC.get_iupac-599"><a href="#SystemIUPAC.get_iupac-599"><span class="linenos">599</span></a>        <span class="k">if</span> <span class="n">what</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;smiles&quot;</span><span class="p">,</span> <span class="s2">&quot;inchikey&quot;</span><span class="p">,</span> <span class="s2">&quot;inchi&quot;</span><span class="p">]:</span>
+</span><span id="SystemIUPAC.get_iupac-600"><a href="#SystemIUPAC.get_iupac-600"><span class="linenos">600</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid operator. Valid values are &#39;smiles&#39;, &#39;inchikey&#39;, &#39;inchi&#39;&quot;</span><span class="p">)</span>
+</span><span id="SystemIUPAC.get_iupac-601"><a href="#SystemIUPAC.get_iupac-601"><span class="linenos">601</span></a>
+</span><span id="SystemIUPAC.get_iupac-602"><a href="#SystemIUPAC.get_iupac-602"><span class="linenos">602</span></a>        <span class="k">if</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;smiles&quot;</span><span class="p">:</span>
+</span><span id="SystemIUPAC.get_iupac-603"><a href="#SystemIUPAC.get_iupac-603"><span class="linenos">603</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-smiles/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="SystemIUPAC.get_iupac-604"><a href="#SystemIUPAC.get_iupac-604"><span class="linenos">604</span></a>        <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;inchikey&quot;</span><span class="p">:</span>
+</span><span id="SystemIUPAC.get_iupac-605"><a href="#SystemIUPAC.get_iupac-605"><span class="linenos">605</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-inchikey/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="SystemIUPAC.get_iupac-606"><a href="#SystemIUPAC.get_iupac-606"><span class="linenos">606</span></a>        <span class="k">elif</span> <span class="n">what</span> <span class="o">==</span> <span class="s2">&quot;inchi&quot;</span><span class="p">:</span>
+</span><span id="SystemIUPAC.get_iupac-607"><a href="#SystemIUPAC.get_iupac-607"><span class="linenos">607</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/opsin/to-inchi/</span><span class="si">{</span><span class="n">chem_name</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="SystemIUPAC.get_iupac-608"><a href="#SystemIUPAC.get_iupac-608"><span class="linenos">608</span></a>      
+</span><span id="SystemIUPAC.get_iupac-609"><a href="#SystemIUPAC.get_iupac-609"><span class="linenos">609</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><h4 id="description">Description:</h4>
+
+<pre><code>This endpoint returns smile code, InChlKey or InChi for a chemical name.
+</code></pre>
+
+<h4 id="input-parameters">Input Parameters:</h4>
+
+<pre><code>- chem_name: Chemical Name
+- what: Valid values are 'smiles', 'inchikey', 'inchi'
+</code></pre>
+
+<h4 id="output-schema">Output Schema:</h4>
+
+<pre><code>"string"
+</code></pre>
+
+<h4 id="example">Example:</h4>
+
+<pre><code>client = SystemIUPAC(api_key=api_key)
+response = client.get_iupac(chem_name="acetamide", what="inchikey")
+response = client.get_iupac(chem_name="acetamide", what="inchi")
+response = client.get_iupac(chem_name="acetamide", what="smiles")
+</code></pre>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="../core/base_client.html#BaseAPIClient">pycomptox.core.base_client.BaseAPIClient</a></dt>
+                                <dd id="SystemIUPAC.base_url" class="variable"><a href="../core/base_client.html#BaseAPIClient.base_url">base_url</a></dd>
+                <dd id="SystemIUPAC.api_key" class="variable"><a href="../core/base_client.html#BaseAPIClient.api_key">api_key</a></dd>
+                <dd id="SystemIUPAC.get" class="function"><a href="../core/base_client.html#BaseAPIClient.get">get</a></dd>
+                <dd id="SystemIUPAC.post" class="function"><a href="../core/base_client.html#BaseAPIClient.post">post</a></dd>
+                <dd id="SystemIUPAC.put" class="function"><a href="../core/base_client.html#BaseAPIClient.put">put</a></dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="ChemProperties">
+                            <input id="ChemProperties-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+            
+    <span class="def">class</span>
+    <span class="name">ChemProperties</span><wbr>(<span class="base"><a href="../core/base_client.html#BaseAPIClient">pycomptox.core.base_client.BaseAPIClient</a></span>):
+
+                <label class="view-source-button" for="ChemProperties-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ChemProperties"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ChemProperties-612"><a href="#ChemProperties-612"><span class="linenos">612</span></a><span class="k">class</span> <span class="nc">ChemProperties</span><span class="p">(</span><span class="n">BaseAPIClient</span><span class="p">):</span>
+</span><span id="ChemProperties-613"><a href="#ChemProperties-613"><span class="linenos">613</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ChemProperties-614"><a href="#ChemProperties-614"><span class="linenos">614</span></a><span class="sd">    #### Description:</span>
+</span><span id="ChemProperties-615"><a href="#ChemProperties-615"><span class="linenos">615</span></a><span class="sd">        Get Chemical properties.</span>
+</span><span id="ChemProperties-616"><a href="#ChemProperties-616"><span class="linenos">616</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="ChemProperties-617"><a href="#ChemProperties-617"><span class="linenos">617</span></a>
+</span><span id="ChemProperties-618"><a href="#ChemProperties-618"><span class="linenos">618</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="ChemProperties-619"><a href="#ChemProperties-619"><span class="linenos">619</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+</span><span id="ChemProperties-620"><a href="#ChemProperties-620"><span class="linenos">620</span></a>
+</span><span id="ChemProperties-621"><a href="#ChemProperties-621"><span class="linenos">621</span></a>    <span class="k">def</span> <span class="nf">get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="ChemProperties-622"><a href="#ChemProperties-622"><span class="linenos">622</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ChemProperties-623"><a href="#ChemProperties-623"><span class="linenos">623</span></a><span class="sd">        #### Description:</span>
+</span><span id="ChemProperties-624"><a href="#ChemProperties-624"><span class="linenos">624</span></a><span class="sd">            Get Chemical properties.</span>
+</span><span id="ChemProperties-625"><a href="#ChemProperties-625"><span class="linenos">625</span></a>
+</span><span id="ChemProperties-626"><a href="#ChemProperties-626"><span class="linenos">626</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="ChemProperties-627"><a href="#ChemProperties-627"><span class="linenos">627</span></a><span class="sd">            - by: Operator to search chemical. Valid values are &#39;propid&#39;, &#39;dtxsid&#39;, &#39;predicted&#39;, &#39;experimental&#39;</span>
+</span><span id="ChemProperties-628"><a href="#ChemProperties-628"><span class="linenos">628</span></a><span class="sd">            - params: Dict of parameters based on operator.</span>
+</span><span id="ChemProperties-629"><a href="#ChemProperties-629"><span class="linenos">629</span></a>
+</span><span id="ChemProperties-630"><a href="#ChemProperties-630"><span class="linenos">630</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="ChemProperties-631"><a href="#ChemProperties-631"><span class="linenos">631</span></a><span class="sd">            When by = &quot;dtxsid&quot;</span>
+</span><span id="ChemProperties-632"><a href="#ChemProperties-632"><span class="linenos">632</span></a>
+</span><span id="ChemProperties-633"><a href="#ChemProperties-633"><span class="linenos">633</span></a><span class="sd">            [</span>
+</span><span id="ChemProperties-634"><a href="#ChemProperties-634"><span class="linenos">634</span></a><span class="sd">                {</span>
+</span><span id="ChemProperties-635"><a href="#ChemProperties-635"><span class="linenos">635</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-636"><a href="#ChemProperties-636"><span class="linenos">636</span></a><span class="sd">                &quot;value&quot;: 0,</span>
+</span><span id="ChemProperties-637"><a href="#ChemProperties-637"><span class="linenos">637</span></a><span class="sd">                &quot;id&quot;: 0,</span>
+</span><span id="ChemProperties-638"><a href="#ChemProperties-638"><span class="linenos">638</span></a><span class="sd">                &quot;source&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-639"><a href="#ChemProperties-639"><span class="linenos">639</span></a><span class="sd">                &quot;dtxsid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-640"><a href="#ChemProperties-640"><span class="linenos">640</span></a><span class="sd">                &quot;dtxcid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-641"><a href="#ChemProperties-641"><span class="linenos">641</span></a><span class="sd">                &quot;unit&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-642"><a href="#ChemProperties-642"><span class="linenos">642</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-643"><a href="#ChemProperties-643"><span class="linenos">643</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-644"><a href="#ChemProperties-644"><span class="linenos">644</span></a><span class="sd">                &quot;description&quot;: &quot;string&quot;</span>
+</span><span id="ChemProperties-645"><a href="#ChemProperties-645"><span class="linenos">645</span></a><span class="sd">                }</span>
+</span><span id="ChemProperties-646"><a href="#ChemProperties-646"><span class="linenos">646</span></a><span class="sd">            ]</span>
+</span><span id="ChemProperties-647"><a href="#ChemProperties-647"><span class="linenos">647</span></a>
+</span><span id="ChemProperties-648"><a href="#ChemProperties-648"><span class="linenos">648</span></a><span class="sd">            when by = &quot;experimental&quot; or &quot;predicted&quot;</span>
+</span><span id="ChemProperties-649"><a href="#ChemProperties-649"><span class="linenos">649</span></a><span class="sd">            [</span>
+</span><span id="ChemProperties-650"><a href="#ChemProperties-650"><span class="linenos">650</span></a><span class="sd">                {</span>
+</span><span id="ChemProperties-651"><a href="#ChemProperties-651"><span class="linenos">651</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-652"><a href="#ChemProperties-652"><span class="linenos">652</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-653"><a href="#ChemProperties-653"><span class="linenos">653</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;</span>
+</span><span id="ChemProperties-654"><a href="#ChemProperties-654"><span class="linenos">654</span></a><span class="sd">                }</span>
+</span><span id="ChemProperties-655"><a href="#ChemProperties-655"><span class="linenos">655</span></a><span class="sd">            ]</span>
+</span><span id="ChemProperties-656"><a href="#ChemProperties-656"><span class="linenos">656</span></a>
+</span><span id="ChemProperties-657"><a href="#ChemProperties-657"><span class="linenos">657</span></a><span class="sd">        #### Example:</span>
+</span><span id="ChemProperties-658"><a href="#ChemProperties-658"><span class="linenos">658</span></a><span class="sd">            client = ChemProperties(api_key=api_key)</span>
+</span><span id="ChemProperties-659"><a href="#ChemProperties-659"><span class="linenos">659</span></a><span class="sd">            response = client.get_properties(by=&quot;dtxsid&quot;, params = {&quot;dtxsid&quot;: &quot;DTXSID7020182&quot;})</span>
+</span><span id="ChemProperties-660"><a href="#ChemProperties-660"><span class="linenos">660</span></a><span class="sd">            response = client.get_properties(by=&quot;propid&quot;, params={&quot;propertyid&quot;: &quot;density&quot;, &quot;start&quot;: 1.311, &quot;end&quot;: 1.313})</span>
+</span><span id="ChemProperties-661"><a href="#ChemProperties-661"><span class="linenos">661</span></a><span class="sd">            response = client.get_properties(by=&quot;experimental&quot;)</span>
+</span><span id="ChemProperties-662"><a href="#ChemProperties-662"><span class="linenos">662</span></a><span class="sd">            response = client.get_properties(by=&quot;predicted&quot;)</span>
+</span><span id="ChemProperties-663"><a href="#ChemProperties-663"><span class="linenos">663</span></a><span class="sd">        </span>
+</span><span id="ChemProperties-664"><a href="#ChemProperties-664"><span class="linenos">664</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ChemProperties-665"><a href="#ChemProperties-665"><span class="linenos">665</span></a>
+</span><span id="ChemProperties-666"><a href="#ChemProperties-666"><span class="linenos">666</span></a>        <span class="n">by</span> <span class="o">=</span> <span class="n">by</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="ChemProperties-667"><a href="#ChemProperties-667"><span class="linenos">667</span></a>        <span class="k">if</span> <span class="n">by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;propid&quot;</span><span class="p">,</span> <span class="s2">&quot;dtxsid&quot;</span><span class="p">,</span> <span class="s2">&quot;predicted&quot;</span><span class="p">,</span> <span class="s2">&quot;experimental&quot;</span><span class="p">]:</span>
+</span><span id="ChemProperties-668"><a href="#ChemProperties-668"><span class="linenos">668</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid operator. Valid values are &#39;dtxsid&#39;, &#39;dtxcid&#39;, &#39;predicted&#39;, &#39;experimental&#39;&quot;</span><span class="p">)</span>
+</span><span id="ChemProperties-669"><a href="#ChemProperties-669"><span class="linenos">669</span></a>        
+</span><span id="ChemProperties-670"><a href="#ChemProperties-670"><span class="linenos">670</span></a>        <span class="k">if</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;propid&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties-671"><a href="#ChemProperties-671"><span class="linenos">671</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">params</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;propertyid&quot;</span><span class="p">]):</span>
+</span><span id="ChemProperties-672"><a href="#ChemProperties-672"><span class="linenos">672</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please provide propertyid, start and end values in params&quot;</span><span class="p">)</span>
+</span><span id="ChemProperties-673"><a href="#ChemProperties-673"><span class="linenos">673</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-range/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;propertyid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="ChemProperties-674"><a href="#ChemProperties-674"><span class="linenos">674</span></a>        
+</span><span id="ChemProperties-675"><a href="#ChemProperties-675"><span class="linenos">675</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;dtxsid&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties-676"><a href="#ChemProperties-676"><span class="linenos">676</span></a>            <span class="k">if</span> <span class="s2">&quot;dtxsid&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+</span><span id="ChemProperties-677"><a href="#ChemProperties-677"><span class="linenos">677</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please provide dtxsid in params&quot;</span><span class="p">)</span>
+</span><span id="ChemProperties-678"><a href="#ChemProperties-678"><span class="linenos">678</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-dtxsid/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dtxsid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="ChemProperties-679"><a href="#ChemProperties-679"><span class="linenos">679</span></a>
+</span><span id="ChemProperties-680"><a href="#ChemProperties-680"><span class="linenos">680</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;experimental&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties-681"><a href="#ChemProperties-681"><span class="linenos">681</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/experimental/name&quot;</span>
+</span><span id="ChemProperties-682"><a href="#ChemProperties-682"><span class="linenos">682</span></a>
+</span><span id="ChemProperties-683"><a href="#ChemProperties-683"><span class="linenos">683</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;predicted&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties-684"><a href="#ChemProperties-684"><span class="linenos">684</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/predicted/name&quot;</span>
+</span><span id="ChemProperties-685"><a href="#ChemProperties-685"><span class="linenos">685</span></a>        
+</span><span id="ChemProperties-686"><a href="#ChemProperties-686"><span class="linenos">686</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span><span id="ChemProperties-687"><a href="#ChemProperties-687"><span class="linenos">687</span></a>
+</span><span id="ChemProperties-688"><a href="#ChemProperties-688"><span class="linenos">688</span></a>    <span class="k">def</span> <span class="nf">get_properties_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtxsid_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="ChemProperties-689"><a href="#ChemProperties-689"><span class="linenos">689</span></a><span class="w">        </span>
+</span><span id="ChemProperties-690"><a href="#ChemProperties-690"><span class="linenos">690</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ChemProperties-691"><a href="#ChemProperties-691"><span class="linenos">691</span></a><span class="sd">        #### Description:</span>
+</span><span id="ChemProperties-692"><a href="#ChemProperties-692"><span class="linenos">692</span></a><span class="sd">            Get Chemical properties in batch.</span>
+</span><span id="ChemProperties-693"><a href="#ChemProperties-693"><span class="linenos">693</span></a>
+</span><span id="ChemProperties-694"><a href="#ChemProperties-694"><span class="linenos">694</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="ChemProperties-695"><a href="#ChemProperties-695"><span class="linenos">695</span></a><span class="sd">            - dtxsid_list: List of DTXSIDs</span>
+</span><span id="ChemProperties-696"><a href="#ChemProperties-696"><span class="linenos">696</span></a><span class="sd">        </span>
+</span><span id="ChemProperties-697"><a href="#ChemProperties-697"><span class="linenos">697</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="ChemProperties-698"><a href="#ChemProperties-698"><span class="linenos">698</span></a><span class="sd">            [</span>
+</span><span id="ChemProperties-699"><a href="#ChemProperties-699"><span class="linenos">699</span></a><span class="sd">                {</span>
+</span><span id="ChemProperties-700"><a href="#ChemProperties-700"><span class="linenos">700</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-701"><a href="#ChemProperties-701"><span class="linenos">701</span></a><span class="sd">                &quot;value&quot;: 0,</span>
+</span><span id="ChemProperties-702"><a href="#ChemProperties-702"><span class="linenos">702</span></a><span class="sd">                &quot;id&quot;: 0,</span>
+</span><span id="ChemProperties-703"><a href="#ChemProperties-703"><span class="linenos">703</span></a><span class="sd">                &quot;source&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-704"><a href="#ChemProperties-704"><span class="linenos">704</span></a><span class="sd">                &quot;dtxsid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-705"><a href="#ChemProperties-705"><span class="linenos">705</span></a><span class="sd">                &quot;dtxcid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-706"><a href="#ChemProperties-706"><span class="linenos">706</span></a><span class="sd">                &quot;unit&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-707"><a href="#ChemProperties-707"><span class="linenos">707</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-708"><a href="#ChemProperties-708"><span class="linenos">708</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties-709"><a href="#ChemProperties-709"><span class="linenos">709</span></a><span class="sd">                &quot;description&quot;: &quot;string&quot;</span>
+</span><span id="ChemProperties-710"><a href="#ChemProperties-710"><span class="linenos">710</span></a><span class="sd">                }</span>
+</span><span id="ChemProperties-711"><a href="#ChemProperties-711"><span class="linenos">711</span></a><span class="sd">            ]</span>
+</span><span id="ChemProperties-712"><a href="#ChemProperties-712"><span class="linenos">712</span></a>
+</span><span id="ChemProperties-713"><a href="#ChemProperties-713"><span class="linenos">713</span></a><span class="sd">        #### Example:</span>
+</span><span id="ChemProperties-714"><a href="#ChemProperties-714"><span class="linenos">714</span></a><span class="sd">            client = ChemProperties(api_key=api_key)</span>
+</span><span id="ChemProperties-715"><a href="#ChemProperties-715"><span class="linenos">715</span></a><span class="sd">            response = client.get_properties_batch(dtxsid_list=[&quot;DTXSID7020182&quot;])</span>
+</span><span id="ChemProperties-716"><a href="#ChemProperties-716"><span class="linenos">716</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ChemProperties-717"><a href="#ChemProperties-717"><span class="linenos">717</span></a>        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="ChemProperties-718"><a href="#ChemProperties-718"><span class="linenos">718</span></a>        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;json&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dtxsid_list</span>
+</span><span id="ChemProperties-719"><a href="#ChemProperties-719"><span class="linenos">719</span></a>
+</span><span id="ChemProperties-720"><a href="#ChemProperties-720"><span class="linenos">720</span></a>        <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="ChemProperties-721"><a href="#ChemProperties-721"><span class="linenos">721</span></a>        <span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;application/json&quot;</span>
+</span><span id="ChemProperties-722"><a href="#ChemProperties-722"><span class="linenos">722</span></a>        <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-dtxsid/&quot;</span> 
+</span><span id="ChemProperties-723"><a href="#ChemProperties-723"><span class="linenos">723</span></a>
+</span><span id="ChemProperties-724"><a href="#ChemProperties-724"><span class="linenos">724</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><h4 id="description">Description:</h4>
+
+<pre><code>Get Chemical properties.
+</code></pre>
+</div>
+
+
+                            <div id="ChemProperties.__init__" class="classattr">
+                                        <input id="ChemProperties.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="name">ChemProperties</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span></span>)</span>
+
+                <label class="view-source-button" for="ChemProperties.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ChemProperties.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ChemProperties.__init__-618"><a href="#ChemProperties.__init__-618"><span class="linenos">618</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">api_key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="ChemProperties.__init__-619"><a href="#ChemProperties.__init__-619"><span class="linenos">619</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">api_key</span><span class="p">)</span>
+</span></pre></div>
+
+
+    
+
+                            </div>
+                            <div id="ChemProperties.get_properties" class="classattr">
+                                        <input id="ChemProperties.get_properties-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_properties</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">by</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>, </span><span class="param"><span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">) -> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>:</span></span>
+
+                <label class="view-source-button" for="ChemProperties.get_properties-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ChemProperties.get_properties"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ChemProperties.get_properties-621"><a href="#ChemProperties.get_properties-621"><span class="linenos">621</span></a>    <span class="k">def</span> <span class="nf">get_properties</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">by</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">params</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span> <span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="ChemProperties.get_properties-622"><a href="#ChemProperties.get_properties-622"><span class="linenos">622</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ChemProperties.get_properties-623"><a href="#ChemProperties.get_properties-623"><span class="linenos">623</span></a><span class="sd">        #### Description:</span>
+</span><span id="ChemProperties.get_properties-624"><a href="#ChemProperties.get_properties-624"><span class="linenos">624</span></a><span class="sd">            Get Chemical properties.</span>
+</span><span id="ChemProperties.get_properties-625"><a href="#ChemProperties.get_properties-625"><span class="linenos">625</span></a>
+</span><span id="ChemProperties.get_properties-626"><a href="#ChemProperties.get_properties-626"><span class="linenos">626</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="ChemProperties.get_properties-627"><a href="#ChemProperties.get_properties-627"><span class="linenos">627</span></a><span class="sd">            - by: Operator to search chemical. Valid values are &#39;propid&#39;, &#39;dtxsid&#39;, &#39;predicted&#39;, &#39;experimental&#39;</span>
+</span><span id="ChemProperties.get_properties-628"><a href="#ChemProperties.get_properties-628"><span class="linenos">628</span></a><span class="sd">            - params: Dict of parameters based on operator.</span>
+</span><span id="ChemProperties.get_properties-629"><a href="#ChemProperties.get_properties-629"><span class="linenos">629</span></a>
+</span><span id="ChemProperties.get_properties-630"><a href="#ChemProperties.get_properties-630"><span class="linenos">630</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="ChemProperties.get_properties-631"><a href="#ChemProperties.get_properties-631"><span class="linenos">631</span></a><span class="sd">            When by = &quot;dtxsid&quot;</span>
+</span><span id="ChemProperties.get_properties-632"><a href="#ChemProperties.get_properties-632"><span class="linenos">632</span></a>
+</span><span id="ChemProperties.get_properties-633"><a href="#ChemProperties.get_properties-633"><span class="linenos">633</span></a><span class="sd">            [</span>
+</span><span id="ChemProperties.get_properties-634"><a href="#ChemProperties.get_properties-634"><span class="linenos">634</span></a><span class="sd">                {</span>
+</span><span id="ChemProperties.get_properties-635"><a href="#ChemProperties.get_properties-635"><span class="linenos">635</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-636"><a href="#ChemProperties.get_properties-636"><span class="linenos">636</span></a><span class="sd">                &quot;value&quot;: 0,</span>
+</span><span id="ChemProperties.get_properties-637"><a href="#ChemProperties.get_properties-637"><span class="linenos">637</span></a><span class="sd">                &quot;id&quot;: 0,</span>
+</span><span id="ChemProperties.get_properties-638"><a href="#ChemProperties.get_properties-638"><span class="linenos">638</span></a><span class="sd">                &quot;source&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-639"><a href="#ChemProperties.get_properties-639"><span class="linenos">639</span></a><span class="sd">                &quot;dtxsid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-640"><a href="#ChemProperties.get_properties-640"><span class="linenos">640</span></a><span class="sd">                &quot;dtxcid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-641"><a href="#ChemProperties.get_properties-641"><span class="linenos">641</span></a><span class="sd">                &quot;unit&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-642"><a href="#ChemProperties.get_properties-642"><span class="linenos">642</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-643"><a href="#ChemProperties.get_properties-643"><span class="linenos">643</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-644"><a href="#ChemProperties.get_properties-644"><span class="linenos">644</span></a><span class="sd">                &quot;description&quot;: &quot;string&quot;</span>
+</span><span id="ChemProperties.get_properties-645"><a href="#ChemProperties.get_properties-645"><span class="linenos">645</span></a><span class="sd">                }</span>
+</span><span id="ChemProperties.get_properties-646"><a href="#ChemProperties.get_properties-646"><span class="linenos">646</span></a><span class="sd">            ]</span>
+</span><span id="ChemProperties.get_properties-647"><a href="#ChemProperties.get_properties-647"><span class="linenos">647</span></a>
+</span><span id="ChemProperties.get_properties-648"><a href="#ChemProperties.get_properties-648"><span class="linenos">648</span></a><span class="sd">            when by = &quot;experimental&quot; or &quot;predicted&quot;</span>
+</span><span id="ChemProperties.get_properties-649"><a href="#ChemProperties.get_properties-649"><span class="linenos">649</span></a><span class="sd">            [</span>
+</span><span id="ChemProperties.get_properties-650"><a href="#ChemProperties.get_properties-650"><span class="linenos">650</span></a><span class="sd">                {</span>
+</span><span id="ChemProperties.get_properties-651"><a href="#ChemProperties.get_properties-651"><span class="linenos">651</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-652"><a href="#ChemProperties.get_properties-652"><span class="linenos">652</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties-653"><a href="#ChemProperties.get_properties-653"><span class="linenos">653</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;</span>
+</span><span id="ChemProperties.get_properties-654"><a href="#ChemProperties.get_properties-654"><span class="linenos">654</span></a><span class="sd">                }</span>
+</span><span id="ChemProperties.get_properties-655"><a href="#ChemProperties.get_properties-655"><span class="linenos">655</span></a><span class="sd">            ]</span>
+</span><span id="ChemProperties.get_properties-656"><a href="#ChemProperties.get_properties-656"><span class="linenos">656</span></a>
+</span><span id="ChemProperties.get_properties-657"><a href="#ChemProperties.get_properties-657"><span class="linenos">657</span></a><span class="sd">        #### Example:</span>
+</span><span id="ChemProperties.get_properties-658"><a href="#ChemProperties.get_properties-658"><span class="linenos">658</span></a><span class="sd">            client = ChemProperties(api_key=api_key)</span>
+</span><span id="ChemProperties.get_properties-659"><a href="#ChemProperties.get_properties-659"><span class="linenos">659</span></a><span class="sd">            response = client.get_properties(by=&quot;dtxsid&quot;, params = {&quot;dtxsid&quot;: &quot;DTXSID7020182&quot;})</span>
+</span><span id="ChemProperties.get_properties-660"><a href="#ChemProperties.get_properties-660"><span class="linenos">660</span></a><span class="sd">            response = client.get_properties(by=&quot;propid&quot;, params={&quot;propertyid&quot;: &quot;density&quot;, &quot;start&quot;: 1.311, &quot;end&quot;: 1.313})</span>
+</span><span id="ChemProperties.get_properties-661"><a href="#ChemProperties.get_properties-661"><span class="linenos">661</span></a><span class="sd">            response = client.get_properties(by=&quot;experimental&quot;)</span>
+</span><span id="ChemProperties.get_properties-662"><a href="#ChemProperties.get_properties-662"><span class="linenos">662</span></a><span class="sd">            response = client.get_properties(by=&quot;predicted&quot;)</span>
+</span><span id="ChemProperties.get_properties-663"><a href="#ChemProperties.get_properties-663"><span class="linenos">663</span></a><span class="sd">        </span>
+</span><span id="ChemProperties.get_properties-664"><a href="#ChemProperties.get_properties-664"><span class="linenos">664</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ChemProperties.get_properties-665"><a href="#ChemProperties.get_properties-665"><span class="linenos">665</span></a>
+</span><span id="ChemProperties.get_properties-666"><a href="#ChemProperties.get_properties-666"><span class="linenos">666</span></a>        <span class="n">by</span> <span class="o">=</span> <span class="n">by</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+</span><span id="ChemProperties.get_properties-667"><a href="#ChemProperties.get_properties-667"><span class="linenos">667</span></a>        <span class="k">if</span> <span class="n">by</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;propid&quot;</span><span class="p">,</span> <span class="s2">&quot;dtxsid&quot;</span><span class="p">,</span> <span class="s2">&quot;predicted&quot;</span><span class="p">,</span> <span class="s2">&quot;experimental&quot;</span><span class="p">]:</span>
+</span><span id="ChemProperties.get_properties-668"><a href="#ChemProperties.get_properties-668"><span class="linenos">668</span></a>            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid operator. Valid values are &#39;dtxsid&#39;, &#39;dtxcid&#39;, &#39;predicted&#39;, &#39;experimental&#39;&quot;</span><span class="p">)</span>
+</span><span id="ChemProperties.get_properties-669"><a href="#ChemProperties.get_properties-669"><span class="linenos">669</span></a>        
+</span><span id="ChemProperties.get_properties-670"><a href="#ChemProperties.get_properties-670"><span class="linenos">670</span></a>        <span class="k">if</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;propid&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties.get_properties-671"><a href="#ChemProperties.get_properties-671"><span class="linenos">671</span></a>            <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">(</span><span class="n">key</span> <span class="ow">in</span> <span class="n">params</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;start&quot;</span><span class="p">,</span> <span class="s2">&quot;end&quot;</span><span class="p">,</span> <span class="s2">&quot;propertyid&quot;</span><span class="p">]):</span>
+</span><span id="ChemProperties.get_properties-672"><a href="#ChemProperties.get_properties-672"><span class="linenos">672</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please provide propertyid, start and end values in params&quot;</span><span class="p">)</span>
+</span><span id="ChemProperties.get_properties-673"><a href="#ChemProperties.get_properties-673"><span class="linenos">673</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-range/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;propertyid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;start&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;end&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="ChemProperties.get_properties-674"><a href="#ChemProperties.get_properties-674"><span class="linenos">674</span></a>        
+</span><span id="ChemProperties.get_properties-675"><a href="#ChemProperties.get_properties-675"><span class="linenos">675</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;dtxsid&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties.get_properties-676"><a href="#ChemProperties.get_properties-676"><span class="linenos">676</span></a>            <span class="k">if</span> <span class="s2">&quot;dtxsid&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+</span><span id="ChemProperties.get_properties-677"><a href="#ChemProperties.get_properties-677"><span class="linenos">677</span></a>                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Please provide dtxsid in params&quot;</span><span class="p">)</span>
+</span><span id="ChemProperties.get_properties-678"><a href="#ChemProperties.get_properties-678"><span class="linenos">678</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-dtxsid/</span><span class="si">{</span><span class="n">params</span><span class="p">[</span><span class="s1">&#39;dtxsid&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="ChemProperties.get_properties-679"><a href="#ChemProperties.get_properties-679"><span class="linenos">679</span></a>
+</span><span id="ChemProperties.get_properties-680"><a href="#ChemProperties.get_properties-680"><span class="linenos">680</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;experimental&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties.get_properties-681"><a href="#ChemProperties.get_properties-681"><span class="linenos">681</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/experimental/name&quot;</span>
+</span><span id="ChemProperties.get_properties-682"><a href="#ChemProperties.get_properties-682"><span class="linenos">682</span></a>
+</span><span id="ChemProperties.get_properties-683"><a href="#ChemProperties.get_properties-683"><span class="linenos">683</span></a>        <span class="k">elif</span> <span class="n">by</span> <span class="o">==</span> <span class="s2">&quot;predicted&quot;</span><span class="p">:</span>
+</span><span id="ChemProperties.get_properties-684"><a href="#ChemProperties.get_properties-684"><span class="linenos">684</span></a>            <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/predicted/name&quot;</span>
+</span><span id="ChemProperties.get_properties-685"><a href="#ChemProperties.get_properties-685"><span class="linenos">685</span></a>        
+</span><span id="ChemProperties.get_properties-686"><a href="#ChemProperties.get_properties-686"><span class="linenos">686</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><h4 id="description">Description:</h4>
+
+<pre><code>Get Chemical properties.
+</code></pre>
+
+<h4 id="input-parameters">Input Parameters:</h4>
+
+<pre><code>- by: Operator to search chemical. Valid values are 'propid', 'dtxsid', 'predicted', 'experimental'
+- params: Dict of parameters based on operator.
+</code></pre>
+
+<h4 id="output-schema">Output Schema:</h4>
+
+<pre><code>When by = "dtxsid"
+
+[
+    {
+    "name": "string",
+    "value": 0,
+    "id": 0,
+    "source": "string",
+    "dtxsid": "string",
+    "dtxcid": "string",
+    "unit": "string",
+    "propertyId": "string",
+    "propType": "string",
+    "description": "string"
+    }
+]
+
+when by = "experimental" or "predicted"
+[
+    {
+    "name": "string",
+    "propertyId": "string",
+    "propType": "string"
+    }
+]
+</code></pre>
+
+<h4 id="example">Example:</h4>
+
+<pre><code>client = ChemProperties(api_key=api_key)
+response = client.get_properties(by="dtxsid", params = {"dtxsid": "DTXSID7020182"})
+response = client.get_properties(by="propid", params={"propertyid": "density", "start": 1.311, "end": 1.313})
+response = client.get_properties(by="experimental")
+response = client.get_properties(by="predicted")
+</code></pre>
+</div>
+
+
+                            </div>
+                            <div id="ChemProperties.get_properties_batch" class="classattr">
+                                        <input id="ChemProperties.get_properties_batch-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+            
+        <span class="def">def</span>
+        <span class="name">get_properties_batch</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">dtxsid_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span>, </span><span class="param"><span class="o">**</span><span class="n">kwargs</span></span><span class="return-annotation">) -> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span>:</span></span>
+
+                <label class="view-source-button" for="ChemProperties.get_properties_batch-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ChemProperties.get_properties_batch"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ChemProperties.get_properties_batch-688"><a href="#ChemProperties.get_properties_batch-688"><span class="linenos">688</span></a>    <span class="k">def</span> <span class="nf">get_properties_batch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dtxsid_list</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="ChemProperties.get_properties_batch-689"><a href="#ChemProperties.get_properties_batch-689"><span class="linenos">689</span></a><span class="w">        </span>
+</span><span id="ChemProperties.get_properties_batch-690"><a href="#ChemProperties.get_properties_batch-690"><span class="linenos">690</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="ChemProperties.get_properties_batch-691"><a href="#ChemProperties.get_properties_batch-691"><span class="linenos">691</span></a><span class="sd">        #### Description:</span>
+</span><span id="ChemProperties.get_properties_batch-692"><a href="#ChemProperties.get_properties_batch-692"><span class="linenos">692</span></a><span class="sd">            Get Chemical properties in batch.</span>
+</span><span id="ChemProperties.get_properties_batch-693"><a href="#ChemProperties.get_properties_batch-693"><span class="linenos">693</span></a>
+</span><span id="ChemProperties.get_properties_batch-694"><a href="#ChemProperties.get_properties_batch-694"><span class="linenos">694</span></a><span class="sd">        #### Input Parameters:</span>
+</span><span id="ChemProperties.get_properties_batch-695"><a href="#ChemProperties.get_properties_batch-695"><span class="linenos">695</span></a><span class="sd">            - dtxsid_list: List of DTXSIDs</span>
+</span><span id="ChemProperties.get_properties_batch-696"><a href="#ChemProperties.get_properties_batch-696"><span class="linenos">696</span></a><span class="sd">        </span>
+</span><span id="ChemProperties.get_properties_batch-697"><a href="#ChemProperties.get_properties_batch-697"><span class="linenos">697</span></a><span class="sd">        #### Output Schema:</span>
+</span><span id="ChemProperties.get_properties_batch-698"><a href="#ChemProperties.get_properties_batch-698"><span class="linenos">698</span></a><span class="sd">            [</span>
+</span><span id="ChemProperties.get_properties_batch-699"><a href="#ChemProperties.get_properties_batch-699"><span class="linenos">699</span></a><span class="sd">                {</span>
+</span><span id="ChemProperties.get_properties_batch-700"><a href="#ChemProperties.get_properties_batch-700"><span class="linenos">700</span></a><span class="sd">                &quot;name&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties_batch-701"><a href="#ChemProperties.get_properties_batch-701"><span class="linenos">701</span></a><span class="sd">                &quot;value&quot;: 0,</span>
+</span><span id="ChemProperties.get_properties_batch-702"><a href="#ChemProperties.get_properties_batch-702"><span class="linenos">702</span></a><span class="sd">                &quot;id&quot;: 0,</span>
+</span><span id="ChemProperties.get_properties_batch-703"><a href="#ChemProperties.get_properties_batch-703"><span class="linenos">703</span></a><span class="sd">                &quot;source&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties_batch-704"><a href="#ChemProperties.get_properties_batch-704"><span class="linenos">704</span></a><span class="sd">                &quot;dtxsid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties_batch-705"><a href="#ChemProperties.get_properties_batch-705"><span class="linenos">705</span></a><span class="sd">                &quot;dtxcid&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties_batch-706"><a href="#ChemProperties.get_properties_batch-706"><span class="linenos">706</span></a><span class="sd">                &quot;unit&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties_batch-707"><a href="#ChemProperties.get_properties_batch-707"><span class="linenos">707</span></a><span class="sd">                &quot;propertyId&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties_batch-708"><a href="#ChemProperties.get_properties_batch-708"><span class="linenos">708</span></a><span class="sd">                &quot;propType&quot;: &quot;string&quot;,</span>
+</span><span id="ChemProperties.get_properties_batch-709"><a href="#ChemProperties.get_properties_batch-709"><span class="linenos">709</span></a><span class="sd">                &quot;description&quot;: &quot;string&quot;</span>
+</span><span id="ChemProperties.get_properties_batch-710"><a href="#ChemProperties.get_properties_batch-710"><span class="linenos">710</span></a><span class="sd">                }</span>
+</span><span id="ChemProperties.get_properties_batch-711"><a href="#ChemProperties.get_properties_batch-711"><span class="linenos">711</span></a><span class="sd">            ]</span>
+</span><span id="ChemProperties.get_properties_batch-712"><a href="#ChemProperties.get_properties_batch-712"><span class="linenos">712</span></a>
+</span><span id="ChemProperties.get_properties_batch-713"><a href="#ChemProperties.get_properties_batch-713"><span class="linenos">713</span></a><span class="sd">        #### Example:</span>
+</span><span id="ChemProperties.get_properties_batch-714"><a href="#ChemProperties.get_properties_batch-714"><span class="linenos">714</span></a><span class="sd">            client = ChemProperties(api_key=api_key)</span>
+</span><span id="ChemProperties.get_properties_batch-715"><a href="#ChemProperties.get_properties_batch-715"><span class="linenos">715</span></a><span class="sd">            response = client.get_properties_batch(dtxsid_list=[&quot;DTXSID7020182&quot;])</span>
+</span><span id="ChemProperties.get_properties_batch-716"><a href="#ChemProperties.get_properties_batch-716"><span class="linenos">716</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="ChemProperties.get_properties_batch-717"><a href="#ChemProperties.get_properties_batch-717"><span class="linenos">717</span></a>        <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="ChemProperties.get_properties_batch-718"><a href="#ChemProperties.get_properties_batch-718"><span class="linenos">718</span></a>        <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;json&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">dtxsid_list</span>
+</span><span id="ChemProperties.get_properties_batch-719"><a href="#ChemProperties.get_properties_batch-719"><span class="linenos">719</span></a>
+</span><span id="ChemProperties.get_properties_batch-720"><a href="#ChemProperties.get_properties_batch-720"><span class="linenos">720</span></a>        <span class="n">headers</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="ChemProperties.get_properties_batch-721"><a href="#ChemProperties.get_properties_batch-721"><span class="linenos">721</span></a>        <span class="n">headers</span><span class="p">[</span><span class="s2">&quot;Content-Type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;application/json&quot;</span>
+</span><span id="ChemProperties.get_properties_batch-722"><a href="#ChemProperties.get_properties_batch-722"><span class="linenos">722</span></a>        <span class="n">resource_id</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;chemical/property/search/by-dtxsid/&quot;</span> 
+</span><span id="ChemProperties.get_properties_batch-723"><a href="#ChemProperties.get_properties_batch-723"><span class="linenos">723</span></a>
+</span><span id="ChemProperties.get_properties_batch-724"><a href="#ChemProperties.get_properties_batch-724"><span class="linenos">724</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="n">resource_id</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><h4 id="description">Description:</h4>
+
+<pre><code>Get Chemical properties in batch.
+</code></pre>
+
+<h4 id="input-parameters">Input Parameters:</h4>
+
+<pre><code>- dtxsid_list: List of DTXSIDs
+</code></pre>
+
+<h4 id="output-schema">Output Schema:</h4>
+
+<pre><code>[
+    {
+    "name": "string",
+    "value": 0,
+    "id": 0,
+    "source": "string",
+    "dtxsid": "string",
+    "dtxcid": "string",
+    "unit": "string",
+    "propertyId": "string",
+    "propType": "string",
+    "description": "string"
+    }
+]
+</code></pre>
+
+<h4 id="example">Example:</h4>
+
+<pre><code>client = ChemProperties(api_key=api_key)
+response = client.get_properties_batch(dtxsid_list=["DTXSID7020182"])
+</code></pre>
+</div>
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt><a href="../core/base_client.html#BaseAPIClient">pycomptox.core.base_client.BaseAPIClient</a></dt>
+                                <dd id="ChemProperties.base_url" class="variable"><a href="../core/base_client.html#BaseAPIClient.base_url">base_url</a></dd>
+                <dd id="ChemProperties.api_key" class="variable"><a href="../core/base_client.html#BaseAPIClient.api_key">api_key</a></dd>
+                <dd id="ChemProperties.get" class="function"><a href="../core/base_client.html#BaseAPIClient.get">get</a></dd>
+                <dd id="ChemProperties.post" class="function"><a href="../core/base_client.html#BaseAPIClient.post">post</a></dd>
+                <dd id="ChemProperties.put" class="function"><a href="../core/base_client.html#BaseAPIClient.put">put</a></dd>
 
             </div>
                                 </dl>
