@@ -723,3 +723,21 @@ class ChemProperties(BaseAPIClient):
         return self.post(resource_id, headers=headers, **kwargs)
 
 
+class IndigoService(BaseAPIClient):
+    """
+    #### Description:
+    """
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+
+
+class ChemFile(BaseAPIClient):
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+
+class Synonyms(BaseAPIClient):
+
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
