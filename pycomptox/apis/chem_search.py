@@ -4,34 +4,44 @@ import json
 
 class ChemSearch(BaseAPIClient):
     """
-    Client for Chemical search.
+    #### Description: 
+         Client for Chemical search. This client provides methods to search chemicals based on various parameters.
     """
+
     def __init__(self, api_key: str):
         super().__init__(api_key)
-        
+
+    """
+    #### GET Methods
+    """
     def starts_with(self, word: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
         """
-        Description:
-        Fetch chemical which starts with.
+        #### Description:
+            Fetch chemical which starts with the search word.
 
-        word: DTXCID, DTXSID , CAS number, Inchl (starting 13 characters), URLencoded chemical name(starting characters).
+        #### path parameter:
+            - word: DTXCID, DTXSID , CAS number, Inchl (starting 13 characters), URLencoded chemical name(starting characters).
 
-        Query Parameters:
-        - top: Int32  -> Number of records to return.
+        #### Query Parameters:
+            - top: Int32  -> Number of records to return.
 
-        Output Schema:
-        {
-          "casrn": "string",
-          "dtxsid": "string",
-          "dtxcid": "string",
-          "preferredName": "string",
-          "hasStructureImage": 0,
-          "smiles": "string",
-          "isMarkush": false,
-          "searchName": "string",
-          "searchValue": "string",
-          "rank": 0
-        }
+        #### Output Schema:
+            {
+              "casrn": "string",
+              "dtxsid": "string",
+              "dtxcid": "string",
+              "preferredName": "string",
+              "hasStructureImage": 0,
+              "smiles": "string",
+              "isMarkush": false,
+              "searchName": "string",
+              "searchValue": "string",
+              "rank": 0
+            }
+        
+        #### Example:
+            client = ChemSearch(api_key=api_key)
+            response = client.starts_with(word="95-16-9", query_params={"top": 10})
         """
         if query_params is None:
             query_params = {}
@@ -42,28 +52,32 @@ class ChemSearch(BaseAPIClient):
 
     def equal(self, word: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
         """
-        Description:
-        Fetch chemical exact match.
+        #### Description:
+             Fetch chemical exact match.
 
-        path parameter:        
-        word: DTXCID, DTXSID, CAS number, Inchl, or URLencoded chemical name(including synonyms).
+        #### path parameter:        
+             word: DTXCID, DTXSID, CAS number, Inchl, or URLencoded chemical name(including synonyms).
 
-        Query Parameters:
-        - top: Int32  -> Number of records to return.
+        #### Query Parameters:
+            - top: Int32  -> Number of records to return.
 
-        Output Schema:
-        {
-          "casrn": "string",
-          "dtxsid": "string",
-          "dtxcid": "string",
-          "preferredName": "string",
-          "hasStructureImage": 0,
-          "smiles": "string",
-          "isMarkush": false,
-          "searchName": "string",
-          "searchValue": "string",
-          "rank": 0
-        }
+        #### Output Schema:
+            {
+              "casrn": "string",
+              "dtxsid": "string",
+              "dtxcid": "string",
+              "preferredName": "string",
+              "hasStructureImage": 0,
+              "smiles": "string",
+              "isMarkush": false,
+              "searchName": "string",
+              "searchValue": "string",
+              "rank": 0
+            }
+
+        #### Example:
+            client = ChemSearch(api_key=api_key)
+            response = client.equal(word="95-16-9", query_params={"top": 10})
         """
         if query_params is None:
             query_params = {}
@@ -74,29 +88,33 @@ class ChemSearch(BaseAPIClient):
     
     def contain(self, word: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
         """
-        Description:
-        Substring of search word.
+        #### Description:
+             Substring of search word.
         
-        path parameter:
-        word: Exact match of DTXSID, Substring match of DTXCID , Substr CAS number, Substr InChlKey Substr URLencoded chemical name(including synonyms).
+        #### path parameter:
+            - word: Exact match of DTXSID, Substring match of DTXCID , Substr CAS number, Substr InChlKey Substr URLencoded chemical name(including synonyms).
 
-        Query Parameters:
-        - top: Int32  -> Number of records to return.
-        - projection: String  -> Default: chemicalsearchall
+        #### Query Parameters:
+            - top: Int32  -> Number of records to return.
+            - projection: String  -> Default: chemicalsearchall
 
-        Output Schema:
-        {
-          "casrn": "string",
-          "dtxsid": "string",
-          "dtxcid": "string",
-          "preferredName": "string",
-          "hasStructureImage": 0,
-          "smiles": "string",
-          "isMarkush": false,
-          "searchName": "string",
-          "searchValue": "string",
-          "rank": 0
-        }
+        #### Output Schema:
+            {
+              "casrn": "string",
+              "dtxsid": "string",
+              "dtxcid": "string",
+              "preferredName": "string",
+              "hasStructureImage": 0,
+              "smiles": "string",
+              "isMarkush": false,
+              "searchName": "string",
+              "searchValue": "string",
+              "rank": 0
+            }
+
+        #### Example:
+            client = ChemSearch(api_key=api_key)
+            response = client.contain(word="95-16", query_params={"top": 10})
         """
         if query_params is None:
             query_params = {}
@@ -107,19 +125,23 @@ class ChemSearch(BaseAPIClient):
 
     def by_mass(self, range: List[float], query_params: Dict[str, Any] = None) -> Dict[str, Any]:
             """
-            Description:
-            Search ms ready chemical using mass range .
+            #### Description:
+                Search ms ready chemical using mass range .
 
-            path parameter:
-            range: It's a range of mass with two values separated by a comma. e.g. 200.9,200.95 (start mass, end mass)
+            #### path parameter:
+                range: It's a range of mass with two values separated by a comma. e.g. 200.9,200.95 (start mass, end mass)
 
-            Query Parameters:
-            - None
+            #### Query Parameters:
+                 None
 
-            Output Schema:
-            [
-                "string"
-            ]
+            #### Output Schema:
+                [
+                    "string"
+                ]
+
+            #### Example:
+                client = ChemSearch(api_key=api_key)
+                response = client.by_mass(range=[200.9, 200.95], query_params={})
             """
             if query_params is None:
                 query_params = {}
@@ -130,19 +152,23 @@ class ChemSearch(BaseAPIClient):
     
     def by_formula(self, formula: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
             """
-            Description:
-            Search ms ready chemicals by formula.
+            #### Description:
+                Search ms ready chemicals by formula.
 
-            path parameter:
-            formula: formula string
+            #### path parameter:
+                formula: formula string
 
-            Query Parameters:
-            - None
+            #### Query Parameters:
+                - None
 
-            Output Schema:
-            [
-                "string"
-            ]
+            #### Output Schema:
+                [
+                    "string"
+                ]
+
+            #### Example:
+                client = ChemSearch(api_key=api_key)
+                response = client.by_formula(formula="C16H24N2O5S", query_params
             """
             if query_params is None:
                 query_params = {}
@@ -153,19 +179,23 @@ class ChemSearch(BaseAPIClient):
     
     def by_dtxcid(self, dtxcid: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
             """
-            Description:
-            Search ms ready chemicals by formula.
+            #### Description:
+                Search ms ready chemicals by formula.
 
-            path parameter:
-            dtxcid: DSSTox Compound Identifier
+            #### path parameter:
+                dtxcid: DSSTox Compound Identifier
 
-            Query Parameters:
-            - None
+            #### Query Parameters:
+                - None
 
-            Output Schema:
-            [
-                "string"
-            ]
+            #### Output Schema:
+                [
+                    "string"
+                ]
+
+            #### Example:
+                client = ChemSearch(api_key=api_key)
+                response = client.by_dtxcid(dtxcid="DTXCID30182", query_params={})
             """
             if query_params is None:
                 query_params = {}
@@ -176,16 +206,16 @@ class ChemSearch(BaseAPIClient):
     
     def by_batch(self, data_list: List[str], query_params: Dict[str, Any] = None) -> Dict[str, Any]:
         """
-            Description:
+        #### Description:
             note : Search batch of values (values are separated by EOL character and maximum 200 values are allowed).
 
-            path parameter:
+        #### path parameter:
             - None
 
-            Query Parameters:
+        #### Query Parameters:
             - None
 
-            Output Schema:
+        #### Output Schema:
             {
                 "casrn": "string",
                 "dtxsid": "string",
@@ -198,6 +228,10 @@ class ChemSearch(BaseAPIClient):
                 "searchValue": "string",
                 "rank": 0
             }
+        
+        #### Example:
+            client = ChemSearch(api_key=api_key)
+            response = client.by_batch(data_list=["DTXCID30182", "DTXCID30182"], query_params={
         """
         kwargs = {}
         kwargs["data"] = '\n'.join(data_list)
@@ -221,25 +255,30 @@ class ChemSearch(BaseAPIClient):
     
 
 class ChemFate(BaseAPIClient):
+
+    """
+    #### Description: 
+         Client for Chemical Fate search. This client provides methods to search chemicals batch of DTXIDS and single DTXID.
+    """
      
     def __init__(self, api_key: str):
         super().__init__(api_key)
 
     def get_dtxids_batch(self, data_list: List[str], query_params: Dict[str, Any] = None) -> Dict[str, Any]:
         """
-        Description:
-        Fetch fate data for a batch of DTXSIDs . Maximum 1000 DTXSIDs are allowed in a single request.
+        ####  Description:
+            Fetch fate data for a batch of DTXSIDs . Maximum 1000 DTXSIDs are allowed in a single request.
 
-        path parameter:
-        - None
+        #### path parameter:
+            - None
 
-        Query Parameters:
-        - None
+        #### Query Parameters:
+            - None
 
-        request body:
+        #### request body:
             ["string"]
 
-        Output Schema:
+        #### Output Schema:
         {
             "id": 0,
             "valueType": "string",
@@ -253,6 +292,10 @@ class ChemFate(BaseAPIClient):
             "minValue": 0,
             "maxValue": 0
         }
+
+        #### Example:
+            client = ChemFate(api_key=api_key)
+            response = client.get_dtxids_batch(data_list=["DTXSID7020182"], query_params={})
         """
         kwargs = {}
         kwargs["json"] = data_list
@@ -270,31 +313,35 @@ class ChemFate(BaseAPIClient):
     
     def by_dtxsid(self, dtxsid: str, query_params: Dict[str, Any] = None) -> Dict[str, Any]:
         """
-        Description:
-        Fetch fate data for a DTXSID.
+        ####  Description:
+                Fetch fate data for a DTXSID.
 
-        path parameter:
-        dtxsid: DTXSID
+        #### path parameter:
+                dtxsid: DTXSID
 
-        Query Parameters:
-        - None
+        #### Query Parameters:
+                - None
 
-        Output Schema:
-        [
-        {
-            "id": 0,
-            "valueType": "string",
-            "dtxsid": "string",
-            "dtxcid": "string",
-            "unit": "string",
-            "resultValue": 0,
-            "modelSource": "string",
-            "endpointName": "string",
-            "description": "string",
-            "minValue": 0,
-            "maxValue": 0
-        }
-        ]
+        #### Output Schema:
+            [
+            {
+                "id": 0,
+                "valueType": "string",
+                "dtxsid": "string",
+                "dtxcid": "string",
+                "unit": "string",
+                "resultValue": 0,
+                "modelSource": "string",
+                "endpointName": "string",
+                "description": "string",
+                "minValue": 0,
+                "maxValue": 0
+            }
+            ]
+        
+        #### Example:
+            client = ChemFate(api_key=api_key)
+            response = client.by_dtxsid(dtxsid="DTXSID7020182")
         """
         if query_params is None:
             query_params = {}
