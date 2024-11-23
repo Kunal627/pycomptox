@@ -173,3 +173,151 @@ class Httk(BaseAPIClient):
         resource_id = f"exposure/httk/search/by-dtxsid/{dtxsid}"
 
         return self.get(resource_id, **kwargs)
+    
+class ListPresence(BaseAPIClient):
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+    
+    def get_list_presence(self, dtxsid: str = None, **kwargs) -> Dict[str, Any]:
+
+        """
+        #### Description:
+            Get list presence information for a given DTXSID. This function can return either the list presence or the list presence tags for a given DTXSID.
+        
+        #### Arguments:
+            - dtxsid: str: The DTXSID for which to retrieve the list presence information.
+                           If no dtxsid is provided, the function will return the list presence tags.
+            - **kwargs: Dict: Additional arguments to pass to the request.
+
+        #### Returns:
+            - Dict: The response from the API.
+                when dtxsid is None:
+                    [
+                    {
+                    "id": 0,
+                    "tagName": "AAAAAA",
+                    "tagDefinition": "AAAAAA",
+                    "kindName": "AAAAAA"
+                    }
+                    ]
+                when dtxsid is not None:
+                    {
+                    "id": 0,
+                    "dtxsid": "string",
+                    "docid": 0,
+                    "doctitle": "AAAAAA",
+                    "docsubtitle": "AAAAAA",
+                    "docdate": "AAAAAA",
+                    "organization": "AAAAAA",
+                    "reportedfunction": "AAAAAA",
+                    "functioncategory": "AAAAAA",
+                    "component": "AAAAAA",
+                    "keywordset": "string"
+                    }
+
+        #### Example:
+            ```python
+            client = ListPresence(api_key=api_key)
+            response = client.get_list_presence(dtxsid="DTXSID1020560")
+            response = client.get_list_presence()
+
+        """
+
+        if dtxsid is None:
+            resource_id = f"exposure/list-presence/tags"
+
+        else:
+            resource_id = f"exposure/list-presence/search/by-dtxsid/{dtxsid}"
+        
+        return self.get(resource_id, **kwargs)
+    
+class GeneralExposure(BaseAPIClient):
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+    
+    def get_general_exposure(self, dtxsid: str, **kwargs) -> Dict[str, Any]:
+
+        """
+        #### Description:
+            Get general exposure information for a given DTXSID.
+
+        #### Arguments:
+            - dtxsid: str: The DTXSID for which to retrieve the general exposure information.
+            - **kwargs: Dict: Additional arguments to pass to the request.
+
+        #### Returns:
+            {
+            "dtxsid": "AAAAAA",
+            "productionVolume": 0,
+            "units": "AAAAAA",
+            "stockholmConvention": 0,
+            "probabilityDietary": 0,
+            "probabilityResidential": 0,
+            "probabilityPesticde": 0,
+            "probabilityIndustrial": 0,
+            "dataVersion": "AAAAAA",
+            "importDate": "1970-01-01T00:00:00.000Z"
+            }
+
+        #### Example:
+            ```python
+            client = GeneralExposure(api_key=api_key)
+            response = client.get_general_exposure(dtxsid="DTXSID1020560")
+            print(response)
+            ```
+        """
+        resource_id = f"exposure/seem/general/search/by-dtxsid/{dtxsid}"
+
+        return self.get(resource_id, **kwargs)
+    
+class DemographicExposure(BaseAPIClient):
+    def __init__(self, api_key: str):
+        super().__init__(api_key)
+    
+    def get_demographic_exposure(self, dtxsid: str, **kwargs) -> Dict[str, Any]:
+    
+        """
+        #### Description:
+            Get demographic exposure information for a given DTXSID.
+        
+        #### Arguments:
+            - dtxsid: str: The DTXSID for which to retrieve the demographic exposure information.
+            - **kwargs: Dict: Additional arguments to pass to the request.
+        
+        #### Returns:
+            [
+            {
+            "id": 0,
+            "dtxsid": "AAAAAA",
+            "demographic": "AAAAAA",
+            "predictor": "AAAAAA",
+            "median": 0,
+            "medianText": "AAAAAA",
+            "l95": 0,
+            "l95Text": "AAAAAA",
+            "u95": 0,
+            "u95Text": "AAAAAA",
+            "units": "AAAAAA",
+            "ad": 0,
+            "reference": "AAAAAA",
+            "dataVersion": "AAAAAA",
+            "importDate": "1970-01-01T00:00:00.000Z"
+            }
+            ]
+        
+        #### Example:
+            ```python
+            client = DemographicExposure(api_key=api_key)
+            response = client.get_demographic_exposure(dtxsid="DTXSID1020560")
+            print(response)
+            ```
+        """
+
+        resource_id = f"exposure/seem/demographic/search/by-dtxsid/{dtxsid}"
+
+        return self.get(resource_id, **kwargs)
+
+
+
+
+        
