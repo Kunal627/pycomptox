@@ -26,6 +26,9 @@ We welcome contributions from the community! Here are some ways you can contribu
 
 1. **Report Bugs**: If you find a bug, please report it by opening an issue on our [GitHub Issues](https://github.com/yourusername/pycomptox/issues) page.
 
+    **Fix SSL Issues** : Install package "pip-system-certs" to fix SSL issues.
+    **Example**: pip install pip-system-certs
+
 2. **Suggest Features**: Have an idea for a new feature? Feel free to suggest it by opening a feature request on our [GitHub Issues](https://github.com/yourusername/pycomptox/issues) page.
 
 3. **Submit Pull Requests**: If you want to contribute code, you can fork the repository, make your changes, and submit a pull request. Please ensure your code follows our coding standards and includes tests.
