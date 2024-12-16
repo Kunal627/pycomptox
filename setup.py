@@ -28,7 +28,7 @@ setup(
         "License-Expression :: MIT",
         "Operating System :: OS Independent",
     ],
-    python_requires=project["python_requires"],  # Specify Python version compatibility
+    python_requires=project["requires-python"],  # Specify Python version compatibility
     install_requires=[],
     include_package_data=True,  # Include files from MANIFEST.in
     project_urls={
