@@ -7,7 +7,7 @@
     readme = "README.md"
     homepage = "https://github.com/Kunal627/pycomptox"
     keywords = ["API", "wrapper", "REST", "comptox"]
-    classifiers = ["Programming Language :: Python :: 3", "License :: OSI Approved :: MIT License",  "Operating System :: OS Independent" ]
+    classifiers = ["Programming Language :: Python :: 3", "License-Expression :: MIT",  "Operating System :: OS Independent" ]
     python_requires = ">=3.9"
     bug_tracker = "https://github.com/Kunal627/pycomptox/issues"
     documentation = "https://github.com/Kunal627/pycomptox/blob/main/README.md"
