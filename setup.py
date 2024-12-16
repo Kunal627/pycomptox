@@ -23,13 +23,11 @@ setup(
     packages=find_packages(),  # Automatically find all packages and subpackages
     classifiers=[
         "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
+        "License-Expression :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires=project["python_requires"],  # Specify Python version compatibility
-    install_requires=[
-
-    ],
+    install_requires=[],
     include_package_data=True,  # Include files from MANIFEST.in
     project_urls={
         "Bug Tracker": project["bug_tracker"],
