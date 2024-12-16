@@ -10,7 +10,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 with open("pyproject.toml", "rb") as f:
     pyproject = tomllib.load(f)
 project = pyproject["project"]
-project_urls = pyproject["project.urls"]
+project_urls = pyproject["project"]["urls"]
+print(project_urls)
 
 setup(
     name=project["name"],  # Replace with your package's name
