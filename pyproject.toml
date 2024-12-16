@@ -1,18 +1,26 @@
-[metadata]
-    version = "0.1.0"
-    name = "pycomptox"
-    description = "This is a lightweight wrapper for comptox APIs (for computational toxicology)"
-    authors = [{name = "Kunal Chandra", email = "your.email@example.com"}]
-    license = "MIT"
-    readme = "README.md"
-    homepage = "https://github.com/Kunal627/pycomptox"
-    keywords = ["API", "wrapper", "REST", "comptox"]
-    classifiers = ["Programming Language :: Python :: 3", "License-Expression :: MIT",  "Operating System :: OS Independent" ]
-    python_requires = ">=3.9"
-    bug_tracker = "https://github.com/Kunal627/pycomptox/issues"
-    documentation = "https://github.com/Kunal627/pycomptox/blob/main/README.md"
-    source_code =  "https://github.com/Kunal627/pycomptox"
-
 [build-system]
     requires = ["setuptools>=42", "wheel"]
     build-backend = "setuptools.build_meta"
+    
+[project]
+    version = "0.1.0"
+    name = "pycomptox"
+    depenencies = ["requests", "json"]
+    requires-python = ">=3.9"
+    description = "This is a lightweight wrapper for comptox APIs (for computational toxicology)"
+    authors = [{name = "Kunal Chandra", email = "your.email@example.com"}]
+    maintainers = [{name = "Kunal Chandra", email = "your.email@example.com"}]
+    readme = {file = "README.md", content-type = "text/markdown"}
+    license = {file = "LICENSE", text = "MIT"}
+    classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3.9"
+    ]
+    keywords = ["API", "wrapper", "REST", "comptox", "toxicology", "computational"]
+
+[project.urls]
+    homepage = "https://github.com/Kunal627/pycomptox"
+    bug_tracker = "https://github.com/Kunal627/pycomptox/issues"
+    documentation = "https://github.com/Kunal627/pycomptox/blob/main/README.md"
+    source_code =  "https://github.com/Kunal627/pycomptox"
