@@ -34,6 +34,6 @@ setup(
     project_urls={
         "Bug Tracker": project_urls["bug_tracker"],
         "Documentation": project_urls["documentation"],
-        "Source Code": project_urls["source_code"],
+        "Source Code": project_urls["repository"],
     },
 )
