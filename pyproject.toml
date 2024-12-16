@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 version = "0.1.0"
 name = "pycomptox"
-dependencies = ["requests", "json"]
+dependencies = ["requests"]
 requires-python = ">=3.9"
 description = "This is a lightweight wrapper for comptox APIs (for computational toxicology)"
 authors = [{name = "Kunal Chandra", email = "your.email@example.com"}]
