@@ -23,7 +23,7 @@ setup(
     packages=find_packages(),  # Automatically find all packages and subpackages
     classifiers=[
         "Programming Language :: Python :: 3",
-        f"License :: {project['license']}",
+        "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
     python_requires=project["python_requires"],  # Specify Python version compatibility
