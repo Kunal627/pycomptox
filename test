@@ -1,0 +1,2 @@
+python -m pdoc --output-dir docs pycomptox 
+    

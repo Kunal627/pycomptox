@@ -1,0 +1,24 @@
+# Include the README and LICENSE files
+include README.md
+include LICENSE
+
+# Include all Python files in the mypackage directory
+recursive-include pycomptox *
+
+# Include documentation files (e.g., .rst files)
+recursive-include docs *.rst
+
+# Include configuration files (e.g., .cfg files)
+include *.cfg
+
+# Exclude compiled Python files
+exclude *.pyc
+exclude *.pyo
+
+# Prune directories not needed in the source distribution
+prune build
+prune dist
+prune *.egg-info
+
+# Include all text files in the docs directory
+global-include *.txt
