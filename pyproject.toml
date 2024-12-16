@@ -21,7 +21,7 @@ classifiers = [
 keywords = ["API", "wrapper", "REST", "comptox", "toxicology", "computational"]
 
 [project.urls]
-Homepage = "https://github.com/Kunal627/pycomptox"
-"Bug Tracker" = "https://github.com/Kunal627/pycomptox/issues"
-Documentation = "https://github.com/Kunal627/pycomptox/blob/main/README.md"
-Repository =  "https://github.com/Kunal627/pycomptox"
+homepage = "https://github.com/Kunal627/pycomptox"
+bug_tracker = "https://github.com/Kunal627/pycomptox/issues"
+documentation = "https://github.com/Kunal627/pycomptox/blob/main/README.md"
+repository =  "https://github.com/Kunal627/pycomptox"
