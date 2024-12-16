@@ -9,7 +9,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 # Load metadata from pyproject.toml
 with open("pyproject.toml", "rb") as f:
     pyproject = tomllib.load(f)
-project = pyproject["metadata"]
+project = pyproject["project"]
+project_urls = pyproject["project.urls"]
 
 setup(
     name=project["name"],  # Replace with your package's name
@@ -19,7 +20,7 @@ setup(
     description="A lightweight and extendable Python package designed to simplify interaction with Comptox APIs for toxicology analysis.",  # Brief description
     long_description=long_description,  # Detailed description from README.md
     long_description_content_type="text/markdown",  # Format of README.md
-    url=project["homepage"],  # Replace with your GitHub repo URL
+    url=project_urls["homepage"],  # Replace with your GitHub repo URL
     packages=find_packages(),  # Automatically find all packages and subpackages
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -30,8 +31,8 @@ setup(
     install_requires=[],
     include_package_data=True,  # Include files from MANIFEST.in
     project_urls={
-        "Bug Tracker": project["bug_tracker"],
-        "Documentation": project["documentation"],
-        "Source Code": project["source_code"],
+        "Bug Tracker": project_urls["bug_tracker"],
+        "Documentation": project_urls["documentation"],
+        "Source Code": project_urls["source_code"],
     },
 )
