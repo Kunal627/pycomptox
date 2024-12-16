@@ -2,10 +2,6 @@
 # Import necessary modules or packages
 import logging
 
-# Define package-level variables
-__version__ = "0.1.0"
-__author__ = "Kunal Chandra"
-
 # Initialization code
 def initialize_package(config=None):
     """
