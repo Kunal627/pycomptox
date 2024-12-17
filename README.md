@@ -12,7 +12,7 @@ pip install pycomptox
 PyCompTox is designed to be user-friendly and intuitive. Detailed documentation and examples are available to help you get started quickly.
 
 ## Documentation
-Comprehensive documentation is available at [PyCompTox Documentation](https://example.com/docs). It includes tutorials, API references, and usage examples.
+Comprehensive documentation is available at [PyCompTox Documentation](https://kunal627.github.io/pycomptox/). It includes tutorials, API references, and usage examples.
 
 ## Contributing
 We welcome contributions from the community. Please read our [Contributing Guidelines](https://example.com/contributing) to get started.
